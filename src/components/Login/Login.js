@@ -4,7 +4,9 @@ import './Login.css';
 
 function LoginForm() {
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
-    const [username, setUsername] = useState('');
+    const [isGuestFormActive, setIsGuestFormActive] = useState(false);
+    const [guestID, setGuestID] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [university, setUniversity] = useState('Select University');
@@ -24,6 +26,10 @@ function LoginForm() {
             setErrorMessage('');
         }
     };
+
+    const handleGuestIDChange = (event) => {
+        setGuestID(event.target.value);
+    }
 
     const handleConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
@@ -73,6 +79,11 @@ function LoginForm() {
         // For now just set an error message
         setErrorMessage('Signup is currently not implemented');
     };
+
+    const handleGuestLogin = (event) => {
+        event.preventDefault();
+        //TODO Implement datacheck against ID and University
+    }
 
 
     return (
