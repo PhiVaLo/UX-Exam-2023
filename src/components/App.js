@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import HelloWorld from "./HelloWorld/HelloWorld"
+import LoginForm from "./Login/Login"
 
 const App = () => {
     
     return (
-        <div className='container'>
-            <HelloWorld />
-        </div>
+            <LoginForm/>
     )
 }
 
