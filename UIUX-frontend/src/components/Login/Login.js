@@ -9,7 +9,7 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [university, setUniversity] = useState('Select University');
+    const [university, setUniversity] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
@@ -37,8 +37,8 @@ function LoginForm() {
 
     const handleUniversityChange = (event) => {
         setUniversity(event.target.value);
-        if (!university.includes('Select')) {
-
+        if (university.length !== 0) {
+            setErrorMessage('')
         }
     }
 
@@ -71,7 +71,7 @@ function LoginForm() {
             setErrorMessage('Passwords do not match');
             return;
         }
-        if (university.includes('Select University')) {
+        if (university.length === 0) {
             setErrorMessage('Please choose a University');
             return;
         }
@@ -87,7 +87,7 @@ function LoginForm() {
 
 
     return (
-        <div className='login-wrapper '>
+        <div className='login-wrapper'>
             <div className="login-container">
                 {isLoginFormActive ? (
                     <form className="form" id="login" onSubmit={handleLogin}>
@@ -158,7 +158,7 @@ function LoginForm() {
                                 onClick={() => {
                                     setIsLoginFormActive(true);
                                     setIsGuestFormActive(false);
-                            }}
+                                }}
                             >
                                 Already have an account? Sign in
                             </a>

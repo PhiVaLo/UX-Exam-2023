@@ -1,5 +1,5 @@
 const express = require('express')
-const {ApiRouter} = require("./ApiRouter");
+const {ApiRouter} = require("./api/ApiRouter");
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3001
