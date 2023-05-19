@@ -15,8 +15,26 @@ function getUser(id) {
     return user.get();
 }
 
-function addUser(user){
-    db.prepare(`INSERT INTO users (first_name, last_name, role) VALUES ('${user.first_name}', '${user.last_name}', '${user.role}')`).run();
+function getUserEmail(email) {
+    const userEmail = db.prepare(`SELECT * FROM users WHERE email = '${email}'`);
+    return userEmail.get();
+}
+
+function getUserEmailAndPasscode(email, passcode){
+    const userEmail = getUserEmail(email);
+    const userPasscode = db.prepare(`SELECT * FROM users WHERE passcode = '${passcode}'`);
+    return {userEmail, userPasscode};
+}
+
+/*function addUser(user){
+    db.prepare(`INSERT INTO users (first_name, email, passcode, role) VALUES ('${user.first_name}', '${user.email}', '${user.passcode}', '${user.role}')`).run();
+    //db.prepare("INSERT INTO users (first_name, email, passcode, role) VALUES (?, ?, ?, ?)").run(user.first_name, user.email, user.passcode, user.role);
+    db.prepare("INSERT INTO users (first_name, email, passcode, role) VALUES (?, ?, ?, ?)")
+        .run(user.first_name, user.email, user.passcode, user.role);
+}*/
+function addUser(user) {
+    db.prepare('INSERT INTO users (first_name, email, passcode, role) VALUES (?, ?, ?, ?)')
+        .run(user.first_name, user.email, user.passcode, user.role);
 }
 
 function getAllUniversityNames(){
@@ -29,5 +47,8 @@ function addNewUniversity(university){
 
 module.exports.getUser = getUser;
 module.exports.addUser = addUser;
+module.exports.getUser = getUser;
+module.exports.getUserEmail = getUserEmail;
+module.exports.getUserEmailAndPasscode = getUserEmailAndPasscode;
 module.exports.getAllUniversityNames = getAllUniversityNames;
 module.exports.addNewUniversity = addNewUniversity;
