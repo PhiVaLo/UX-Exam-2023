@@ -45,7 +45,16 @@ function addNewUniversity(university){
     db.prepare(`INSERT INTO universities (university_name) VALUES('${university.university_name}') `).run();
 }
 
-module.exports.getUser = getUser;
+function userEmailExist(email){
+    return db.prepare('SELECT * FROM users WHERE email = ?').run(email);
+}
+
+function userExist(email, passcode){
+    return db.prepare('SELECT * FROM users WHERE email = ? AND passcode = ?').get(email, passcode);
+}
+
+module.exports.userExist = userExist;
+module.exports.userEmailExist = userEmailExist;
 module.exports.addUser = addUser;
 module.exports.getUser = getUser;
 module.exports.getUserEmail = getUserEmail;
