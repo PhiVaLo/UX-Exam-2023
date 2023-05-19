@@ -11,15 +11,22 @@ import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
 const App = () => {
     
     //? test database-----------------
-    const participants = [
-        "phiy",
-        "tily",
-        "kkni",
-        "ptso",
-        "omse",
-    ]
     const room = "4A56"
     const duration = 105
+    
+    const [participantsState, setParticipantsState] = useState([]);
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setParticipantsState([
+                "phiy",
+                "tily",
+                "kkni",
+                "ptso",
+                "omse",
+            ]);
+        }, 2000);
+    }, [participantsState]);
     //? test database-----------------
 
 
@@ -32,7 +39,7 @@ const App = () => {
             {/* <ModalCancelBooking /> */}
             <div style={{margin: "30px 0"}}></div><hr />
 
-            <BookingOverview participants={participants} room={room} duration={duration}/>
+            <BookingOverview participants={participantsState} room={room} duration={duration}/>
             <div style={{margin: "30px 0"}}></div><hr />
 
             <Profile />
