@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './BookingOverview.css'
+import ModalAddParticipant from '../ModalAddParticipant/ModalAddParticipant'
+import ModalCancelBooking from '../ModalCancelBooking/ModalCancelBooking'
 
 
 
@@ -8,6 +10,25 @@ const BookingOverview = (props) => {
     const hours = Math.floor(props.duration/60)
     const minutes = props.duration % 60
 
+    const [showAddModal, setShowAddModal] = useState(false);
+    const openAddModal = () => {
+      setShowAddModal(true);
+    };
+    const closeAddModal = () => {
+      setShowAddModal(false);
+    };
+
+
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const openCancelModal = () => {
+      setShowCancelModal(true);
+    };
+    const closeCancelModal = () => {
+      setShowCancelModal(false);
+    };
+
+
+    
     return (
         <div className='booking-overview m-4'>
             <div>
@@ -22,10 +43,21 @@ const BookingOverview = (props) => {
 
 
             <div>
-                <button type="button" className="btn my-btn">Add Participant</button>
+                <button type="button" className="btn my-btn" onClick={openAddModal}>
+                    Add Participant
+                </button>
+                <div className='center-screen'>
+                    {showAddModal && <ModalAddParticipant closeAddModal={closeAddModal} />}
+                </div>
             </div>
+            
             <div>
-                <button type="button" className="btn my-btn">Cancel Booking</button>
+                <button type="button" className="btn my-btn" onClick={openCancelModal}>
+                    Cancel Booking
+                </button>
+                <div className='center-screen'>
+                    {showCancelModal && <ModalCancelBooking closeCancelModal={closeCancelModal} />}
+                </div>                
             </div>
         
         </div>

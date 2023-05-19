@@ -1,9 +1,16 @@
-
-.booking-overview  button {
+.my-btn {
     height: 50px;
-    font-size: 1.0rem;
+    font-size: 1rem;
     font-family: "Quicksand", sans-serif;
 
     padding-left: 20px;
     margin-bottom: 10px;
+}
+
+.center-screen {
+    position: fixed;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
 }

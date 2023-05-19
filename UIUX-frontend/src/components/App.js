@@ -5,6 +5,9 @@ import Navigation from './Navigation/Navigation'
 import Profile from './Profile/Profile'
 import BookingOverview from './BookingOverview/BookingOverview'
 
+import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking"
+import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
+
 const App = () => {
     
     //? test database-----------------
@@ -24,6 +27,10 @@ const App = () => {
     return (
         <div className='container' style={{border: "1px solid blue"}}>
             <Navigation />
+
+            {/* <ModalAddParticipant />             */}
+            {/* <ModalCancelBooking /> */}
+            <div style={{margin: "30px 0"}}></div><hr />
 
             <BookingOverview participants={participants} room={room} duration={duration}/>
             <div style={{margin: "30px 0"}}></div><hr />
