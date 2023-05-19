@@ -31,4 +31,9 @@ CREATE TABLE booking_details(
     booking_id INTEGER NOT NULL
 );
 
+CREATE TABLE universities(
+    university_id INTEGER PRIMARY KEY,
+    university_name Text
+)
+
 

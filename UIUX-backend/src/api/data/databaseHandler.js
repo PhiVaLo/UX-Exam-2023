@@ -16,9 +16,18 @@ function getUser(id) {
 }
 
 function addUser(user){
-    console.log(user);
     db.prepare(`INSERT INTO users (first_name, last_name, role) VALUES ('${user.first_name}', '${user.last_name}', '${user.role}')`).run();
+}
+
+function getAllUniversityNames(){
+    return db.prepare('SELECT ALL (university_name) FROM universities').all();
+}
+
+function addNewUniversity(university){
+    db.prepare(`INSERT INTO universities (university_name) VALUES('${university.university_name}') `).run();
 }
 
 module.exports.getUser = getUser;
 module.exports.addUser = addUser;
+module.exports.getAllUniversityNames = getAllUniversityNames;
+module.exports.addNewUniversity = addNewUniversity;
