@@ -3,6 +3,7 @@
 # dependencies
 UIUX-backend/node_modules
 UIUX-frontend/node_modules
+/node_modules
 /.pnp
 .pnp.js
 
@@ -28,6 +29,7 @@ yarn-error.log*
 # Default ignored files
 /shelf/
 /workspace.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
 
