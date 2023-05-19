@@ -5,24 +5,6 @@
  * this class will be removed on the production-version
  */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-body {
-    --color-primary: #009579;
-    --color-primary-dark: #007f67;
-    --color-secondary: #252c6a;
-    --color-error: #cc3333;
-    --color-success: #4bb544;
-    --border-radius: 4px;
-
-    margin: 0;
-    background: url("./images/BackgroundLogin.jpg");
-    background-size: cover;
-}
-
 
 body::before {
     content: "XS";

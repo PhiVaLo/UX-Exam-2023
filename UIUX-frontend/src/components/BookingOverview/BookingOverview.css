@@ -1,0 +1,9 @@
+
+.booking-overview  button {
+    height: 50px;
+    font-size: 1.0rem;
+    font-family: "Quicksand", sans-serif;
+
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
