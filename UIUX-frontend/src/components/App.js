@@ -47,6 +47,9 @@ const App = () => {
             <div style={{margin: "30px 0"}}></div><hr />
 
             <LoginForm/>
+            <div style={{margin: "30px 0"}}></div><hr />
+
+            <RoomsOverview/>
         </div>
     )
 }
