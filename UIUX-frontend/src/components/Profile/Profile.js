@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
+import { FaTimes } from "react-icons/fa";
+
 const Profile = () => {
     return (
         <div className="profile m-4">
@@ -12,50 +14,64 @@ const Profile = () => {
                 Logout
             </button>
             <div>
-                <p>
-                    <b>Name</b>: John Doe
-                </p>
-                <p>
-                    <b>Role</b>: Student
-                </p>
+                <p><b>Name</b>: John Doe</p>
+                <p><b>Role</b>: Student</p>
             </div>
-            <div style={{ margin: "100px 0" }}></div>{" "}
+            <div style={{ margin: "200px 0" }}></div>{" "}
             {/* delete this line later */}
+
             <div>
                 <p>
                     <b>My Bookings</b>
                 </p>
-                <div>
+                <div className="booking-wrapper">
+
                     <div className="booking-container">
-                        <button type="button" className="btn my-btn">
+                        <button type="button" className="btn booking-btn">
                             ROOM NAME
                         </button>
-                        <p className="remove-booking">X</p>
+                        <button type="button" className="remove-booking">
+                            <FaTimes />
+                        </button>
                     </div>
+
 
                     {/* -------------------------------------------------------- */}
                     {/* The code above should generate the code below with data */}
 
                     <div className="booking-container">
-                        <button
-                            type="button"
-                            className="btn my-btn"
-                            style={{ color: "#ffaa99" }}
-                        >
-                            auto generated from data
+                        <button type="button" className="btn booking-btn">
+                            ROOM NAME
                         </button>
-                        <p className="remove-booking">X</p>
+                        <button type="button" className="remove-booking">
+                            <FaTimes />
+                        </button>
                     </div>
                     <div className="booking-container">
-                        <button
-                            type="button"
-                            className="btn my-btn"
-                            style={{ color: "#ffaa99" }}
-                        >
-                            auto generated from data
+                        <button type="button" className="btn booking-btn">
+                            ROOM NAME
                         </button>
-                        <p className="remove-booking">X</p>
+                        <button type="button" className="remove-booking">
+                            <FaTimes />
+                        </button>
                     </div>
+                    <div className="booking-container">
+                        <button type="button" className="btn booking-btn">
+                            ROOM NAME
+                        </button>
+                        <button type="button" className="remove-booking">
+                            <FaTimes />
+                        </button>
+                    </div>
+                    <div className="booking-container">
+                        <button type="button" className="btn booking-btn">
+                            ROOM NAME
+                        </button>
+                        <button type="button" className="remove-booking">
+                            <FaTimes />
+                        </button>
+                    </div>
+
                     {/* to be deleted */}
                 </div>
                 
