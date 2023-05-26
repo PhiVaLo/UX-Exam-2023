@@ -4,7 +4,11 @@ const {getAllUniversityNames, addNewUniversity} = require("../data/databaseHandl
 module.exports.UniversityRouter = class UniversityRouter extends ApiRouterCore{
     setupRoutes(){
         this.router.get('/', this.getAllUniversities);
-        this.router.put('/', this.addNewUniversity)
+        this.router.post('/', this.addNewUniversity);
+        this.router.get('/bookings/:bookingId', this.getBookingByUniversity);
+        this.router.get('/locations/:universityId', this.getAllLocations)
+        this.router.post('/locations', this.addLocation)
+        this.router.get('/locations/:locationId/rooms', this.getRoomsInLocation)
     }
 
     getAllUniversities(req, res){
