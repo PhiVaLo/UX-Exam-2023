@@ -48,6 +48,19 @@ function addNewUniversity(university){
         .run(university.university_name);
 }
 
+function getBookingsByUserID(userId) {
+   return db.prepare('SELECT ALL FROM bookings WHERE owner_id = ?').all(userId);
+}
+
+function getBookingByUserID(userId, bookingId) {
+    return db.prepare('SELECT * FROM bookings WHERE owner_id = ? AND booking_id = ?')
+        .get(userId, bookingId);
+}
+
+function deleteUserByID(userId) {
+    return db.prepare('DELETE * FROM bookings WHERE user_id = ?').get(userId);
+}
+
 function userEmailExist(email){
     return db.prepare('SELECT * FROM users WHERE email = ?')
         .run(email);

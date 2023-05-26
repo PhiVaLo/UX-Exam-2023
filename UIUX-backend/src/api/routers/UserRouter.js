@@ -1,5 +1,7 @@
 const {ApiRouterCore} = require("../ApiRouterCore");
-const {addUser, getUser, getUserEmail, getUserEmailAndPasscode, userEmailExist, userExist} = require("../data/databaseHandler");
+const {addUser, getUser, getUserEmail, getUserEmailAndPasscode, userEmailExist, userExist, getBookingsByUserID, getBookingByUserID, deleteUser,
+    deleteUserByID
+} = require("../data/databaseHandler");
 
 module.exports.UserRouter = class extends ApiRouterCore{
     setupRoutes(){
