@@ -7,6 +7,7 @@ import BookingOverview from './BookingOverview/BookingOverview'
 
 import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking"
 import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
+import RoomsOverview from "./RoomsOverview/RoomsOverview";
 
 const App = () => {
     
