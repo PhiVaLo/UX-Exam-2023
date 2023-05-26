@@ -1,9 +1,23 @@
+.profile {
+    position: relative;
+}
+
 .booking-box {
     border: 1px solid black;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
+}
+
+.logout-btn {
+    border: 1px solid red;
+    width: 100px;
+    text-align: center !important;
+    padding: 0px !important;
+
+    position: absolute;
+    right: 0;
 }
 
 .my-btn {
@@ -21,11 +35,12 @@
 .profile button {
     height: 50px;
     font-size: 1.0rem;
-    font-family: "Quicksand", sans-serif;
+    /* font-family: "Quicksand", sans-serif; */
 
     text-align: left;
     padding-left: 20px;
     margin-bottom: 10px;
+
 }
 
 .booking-container {
