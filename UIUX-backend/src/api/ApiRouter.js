@@ -5,7 +5,6 @@ const {UserRouter} = require("./routers/UserRouter");
 const {EasterEggRouter} = require("./routers/EasterEggRouter");
 const {UniversityRouter} = require("./routers/UniversityRouter");
 const {LoginRouter} = require("./routers/LoginRouter");
-const {LocationRouter} = require("./routers/LocationRouter");
 
 module.exports.ApiRouter = class extends ApiRouterCore{
     setupRoutes() {

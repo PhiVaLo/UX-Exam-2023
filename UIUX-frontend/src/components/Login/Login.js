@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
-const apiUrl = "http://localhost:3001";
+const apiUrl = "http://localhost:3002";
 
 
 function LoginForm() {
@@ -42,6 +42,36 @@ function LoginForm() {
         if (university.length !== 0) {
             setErrorMessage('')
         }
+    }
+
+    const getUniversities = () => {//TODO Interact with data so show universities:
+        const universities = [];
+        let response = axios.get(apiUrl + `/universities`).then(response => {
+            if (response.data){
+                for (const university of response.data) {
+                    universities.push(university);
+                }
+            }else{
+                console.error("Cannot find universities from api")
+            }
+
+            const body = (
+                <select
+                    className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
+                    onChange={handleUniversityChange}
+                >
+                    {universities && universities.map(university => (<option value={university.university_name} >{university.university_name}</option>))}
+                </select>
+            )
+
+            return body;
+        });
+
+
+    }
+
+    const getOption = (value, label) => {
+        return (<option value={value} >{label}</option>);
     }
 
     const handleLogin = (event) => { //Login Button Pressed
@@ -209,17 +239,7 @@ function LoginForm() {
                         <div className="form-input-error-message"></div>
                     </div>
                     <div className="form-input-group">
-                        <select
-                            className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
-                            value={university}
-                            onChange={handleUniversityChange}
-                        >
-                            //TODO Interact with data so show universities:
-                            <option value="">Select University</option>
-                            <option value="university1">University 1</option>
-                            <option value="university2">University 2</option>
-                            <option value="university3">University 3</option>
-                        </select>
+                        {getUniversities()}
                         <div className="form-input-error-message"></div>
                     </div>
                     <button className="form-button" type="submit">Sign up</button>
