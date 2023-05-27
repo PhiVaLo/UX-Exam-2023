@@ -5,6 +5,10 @@
 
     padding-left: 20px;
     margin-bottom: 10px;
+
+    width: 100%;
+    background-color: var(--color-primary);
+    color: #fff;
 }
 
 .center-screen {
