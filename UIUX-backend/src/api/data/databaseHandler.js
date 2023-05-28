@@ -125,7 +125,7 @@ module.exports.getUsersInBooking = function getUsersInBooking(booking_id){
 }
 
 module.exports.getAllLocationsInUniversity = function (universityId){
-    return db.prepare('SELECT ALL * FROM locations WHERE university_id = ?')
+    return db.prepare('SELECT ALL * FROM locations WHERE university_id = ? ORDER BY name' )
         .all(universityId);
 }
 
@@ -135,7 +135,7 @@ module.exports.addLocation = function (location){
 }
 
 module.exports.getRoomsInLocation = function (locationId){
-    return db.prepare('SELECT ALL * FROM rooms WHERE location_id = ?')
+    return db.prepare('SELECT ALL * FROM rooms WHERE location_id = ? ORDER BY name')
         .all(locationId);
 }
 
