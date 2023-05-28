@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './RoomsOverview.css'
-import MyDatePicker from "../MyDatePicker/MyDatePicker";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -34,6 +33,24 @@ const RoomsOverview = () => {
         return `${date.getDate()}/${date.getMonth()}`;
     }
 
+    //Test case:
+    let testa = [];
+    testa.push(
+        <h1 className='rowHeader'>location.name</h1>,
+        <Row className='rowGrid' xs={4} md={5} lg={6}>
+            <Col className='colBox status-green'>
+                <strong>Room1</strong>
+
+                <p className='colBox-info'><strong>Status:</strong> Fully Booked</p>
+            </Col>
+            <Col className='colBox'>Room2</Col>
+            <Col className='colBox'>Room3</Col>
+            <Col className='colBox'>Room4</Col>
+            <Col className='colBox'>Room5</Col>
+            <Col className='colBox'>Room6</Col>
+        </Row>
+    )
+
     return (
         <div className='rooms-overview'>
 
@@ -52,18 +69,23 @@ const RoomsOverview = () => {
 
             <div className="location-container"> {/*LOCATIONS*/}
                 {createGrid}
+                <Container className='containerGrid'>
+                    {testa}
+                </Container>
             </div>
         </div>
-
-
     )
+}
+function redirect(room) {//TODO needs to redirect to chosen room
 
 }
-
 const createGrid = () => {
     let locations = [];
     let grids = [];
-    axios.get(apiUrl + `/universities/locations/id`).then(function (response) {
+
+    let id = 'ID' //TODO Import id from logged in user
+
+    axios.get(apiUrl + `/universities/locations/` + {id}).then(function (response) {
         if (response.data){
             for (const location of response.data) {
                 locations.push(location);
@@ -87,11 +109,16 @@ const createGrid = () => {
 
             let colList = [];
             rooms.forEach(room => {
-                colList.push(<Col>{room.name}</Col>);
+                let status = room.status; /*TODO might need to be changed according to api*/
+                colList.push(<Col onClick={redirect(room)} className={`colBox ${status.includes('Very') ? 'status-red' : status.includes('Mildly') ? 'status-yellow' : 'status-green'}`}> {/*TODO Values might need to be changed (very & mildly)*/}
+                    {room.name}
+                    <p className='colBox-info'><strong>Status:</strong> {status}</p>
+                </Col>);
             })
 
             grids.push(
-                <Row xs={3} md={5}>
+                <h1 className='rowHeader'>{location.name}</h1>,
+                <Row className='rowGrid' xs={4} md={5} lg={6}>
                     {colList}
                 </Row>
             );
