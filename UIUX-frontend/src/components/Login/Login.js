@@ -115,9 +115,8 @@ function LoginForm() {
                 console.error("Error connecting to the api, make sur backend is running!");
             }
             else if (response.headers.get('Login-status') == 1){
-                // TODO redirect to correct url
                 console.log("Successful login!");
-                window.location.href = "/hello";
+                window.location.href = "/roomsoverview";
             }else{
                 setErrorMessage('Invalid email/password combination');
             }
@@ -163,8 +162,8 @@ function LoginForm() {
         axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
             console.log(response.data.body);
             if (response.data !== 'OK'){
-                //TODO redirect to correct url
-                window.location.href = "/hello";
+                //TODO redirect to correct guest page url
+                window.location.href = "/bookingoverview";
             }else{
                 setErrorMessage('Not a valid guest ID');
             }

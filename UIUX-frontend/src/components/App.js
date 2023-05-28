@@ -31,26 +31,24 @@ const App = () => {
     }, [participantsState]);
     //? test database-----------------
 
-
-
     return (
         <div className='container' style={{border: "1px solid blue"}}>
-            <Navigation />
+
+            {/*<Navigation />
 
             {/* <ModalAddParticipant />             */}
             {/* <ModalCancelBooking /> */}
-            <div style={{margin: "30px 0"}}></div><hr />
+            {/*<div style={{margin: "30px 0"}}></div><hr />
 
             <BookingOverview participants={participantsState} room={room} duration={duration}/>
             <div style={{margin: "30px 0"}}></div><hr />
 
             <Profile />
-            <div style={{margin: "30px 0"}}></div><hr />
+            <div style={{margin: "30px 0"}}></div><hr />*/}
 
             <LoginForm/>
             <div style={{margin: "30px 0"}}></div><hr />
-
-            <RoomsOverview/>
+            {/*<RoomsOverview/>*/}
         </div>
     )
 }
