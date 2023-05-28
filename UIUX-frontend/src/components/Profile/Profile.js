@@ -28,7 +28,7 @@ const Profile = () => {
 
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">
-                            ROOM NAME
+                            Room Name
                         </button>
                         <button type="button" className="remove-booking">
                             <FaTimes />
@@ -41,7 +41,7 @@ const Profile = () => {
 
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">
-                            ROOM NAME
+                            Room Name
                         </button>
                         <button type="button" className="remove-booking">
                             <FaTimes />
@@ -49,7 +49,7 @@ const Profile = () => {
                     </div>
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">
-                            ROOM NAME
+                            Room Name
                         </button>
                         <button type="button" className="remove-booking">
                             <FaTimes />
@@ -57,7 +57,7 @@ const Profile = () => {
                     </div>
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">
-                            ROOM NAME
+                            Room Name
                         </button>
                         <button type="button" className="remove-booking">
                             <FaTimes />
@@ -65,7 +65,7 @@ const Profile = () => {
                     </div>
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">
-                            ROOM NAME
+                            Room Name
                         </button>
                         <button type="button" className="remove-booking">
                             <FaTimes />
