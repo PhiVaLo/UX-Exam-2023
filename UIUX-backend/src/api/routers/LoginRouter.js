@@ -8,7 +8,9 @@ module.exports.LoginRouter = class LoginRouter extends ApiRouterCore{
 
     validateLogin(req, res) {
         const user = userExist(req.body.email, req.body.password);
-        res.set('Login-status', user !== undefined);
+
+        res.set('Login-status', user !== undefined ? 1 : 0);
+        res.set('Access-Control-Expose-Headers', 'Login-status')
         res.sendStatus(200);
     }
 }

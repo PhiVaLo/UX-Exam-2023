@@ -3,6 +3,7 @@ import './Login.css';
 import axios from 'axios';
 const apiUrl = "http://localhost:3002";
 
+const user = {};
 
 function LoginForm() {
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
@@ -47,7 +48,6 @@ function LoginForm() {
     }
 
     const Universities = props => {
-//TODO Interact with data so show universities:
         const [universitiesList, setUniversitiesList] = useState([]);
         const unmountedRef = useRef(false);
         //useEffect(()=>()=>(unmountedRef.current = true), []);
@@ -96,14 +96,15 @@ function LoginForm() {
 
     const handleLogin = (event) => { //Login Button Pressed
         event.preventDefault();
-        /*if (!regex.test(userEmail)) {
+
+        if (!regex.test(userEmail)) {
             setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
             setErrorMessage('Password must be at least 8 characters in length');
             return;
-        }*/
+        }
 
         const data = {
             email:userEmail,
@@ -113,11 +114,11 @@ function LoginForm() {
             if (response.status === 404){
                 console.error("Error connecting to the api, make sur backend is running!");
             }
-            else if (response.headers.get('Login-status')){
-                // TODO implement successful login
+            else if (response.headers.get('Login-status') == 1){
+                // TODO redirect to correct url
                 console.log("Successful login!");
+                window.location.href = "/hello";
             }else{
-                // TODO For now just set an error message
                 setErrorMessage('Invalid email/password combination');
             }
         });
@@ -159,7 +160,15 @@ function LoginForm() {
 
     const handleGuestLogin = (event) => {
         event.preventDefault();
-        //TODO Implement datacheck against ID and University
+        axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
+            console.log(response.data.body);
+            if (response.data !== 'OK'){
+                //TODO redirect to correct url
+                window.location.href = "/hello";
+            }else{
+                setErrorMessage('Not a valid guest ID');
+            }
+        });
     }
 
 
@@ -191,9 +200,9 @@ function LoginForm() {
                         <div className="form-input-error-message"></div>
                     </div>
                     <button className="form-button" type="submit">Log in</button>
-                    <p className="form-text">
+                    {/*<p className="form-text">
                         <a href="#" className="form-link">Forgot your password?</a>
-                    </p>
+                    </p>*/}
                     <p className="form-text">
                         <a
                             className="form-link"
