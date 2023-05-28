@@ -16,7 +16,8 @@ const App = () => {
     const duration = 105
     
     const [participantsState, setParticipantsState] = useState([]);
-    
+
+    // TODO Remove for final build
     useEffect(() => {
         setTimeout(() => {
             setParticipantsState([
