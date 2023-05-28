@@ -34,7 +34,7 @@ function getUserEmailAndPasscode(email, password){
         .run(user.first_name, user.email, user.passcode, user.role);
 }*/
 function addUser(user) {
-    db.prepare('INSERT INTO users (name, email, password, role, university_id) VALUES (?, ?, ?, ?)')
+    db.prepare('INSERT INTO users (name, email, password, role, university_id) VALUES (?, ?, ?, ?, ?)')
         .run(user.name, user.email, user.password, user.role, user.university_id);
 }
 
