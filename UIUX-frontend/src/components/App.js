@@ -4,10 +4,12 @@ import LoginForm from "./Login/Login";
 import Navigation from "./Navigation/Navigation";
 import Profile from "./Profile/Profile";
 import BookingOverview from "./BookingOverview/BookingOverview";
-import ChooseRoom from "./ChooseRoom/ChooseRoom"
+import ChooseRoom from "./ChooseRoom/ChooseRoom";
 
 import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking";
 import ModalAddParticipant from "./ModalAddParticipant/ModalAddParticipant";
+
+import { WindowWidthProvider } from "./WindowWidthContext";
 
 const App = () => {
     //? test database-----------------
@@ -24,38 +26,39 @@ const App = () => {
     //? test database-----------------
 
     return (
-        <div>
-            <Navigation />
+        <WindowWidthProvider>
+            <div>
+                <Navigation />
 
-            <div className="container debug-box">
-                <ChooseRoom />
+                <div className="container debug-box">
+                    <ChooseRoom />
+                </div>
+
+                <div className="container debug-box">
+                    <Profile />
+                </div>
+
+                <div className="container debug-box">
+                    <BookingOverview
+                        participants={participantsState}
+                        room={room}
+                        duration={duration}
+                    />
+                </div>
+
+                <div className="container debug-box">
+                    <LoginForm />
+                </div>
+
+                <div className="container debug-box">
+                    <ModalAddParticipant />
+                </div>
+
+                <div className="container debug-box">
+                    <ModalCancelBooking />
+                </div>
             </div>
-
-            <div className="container debug-box">
-                <Profile />
-            </div>
-
-            <div className="container debug-box">
-                <BookingOverview
-                    participants={participantsState}
-                    room={room}
-                    duration={duration}
-                />
-            </div>
-
-            <div className="container debug-box">
-                <LoginForm />
-            </div>
-
-            <div className="container debug-box">
-                <ModalAddParticipant />
-            </div>
-
-            <div className="container debug-box">
-                <ModalCancelBooking />
-            </div>
-
-        </div>
+        </WindowWidthProvider>
     );
 };
 

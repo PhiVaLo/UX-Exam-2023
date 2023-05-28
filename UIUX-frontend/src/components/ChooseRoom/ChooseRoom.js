@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ChooseRoom.css";
 
-import { FaLessThan } from "react-icons/fa";
+import { WindowWidthContext } from '../WindowWidthContext';
+import '../config'
 
 const ChooseRoom = () => {
-    // window width
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const sm = 768;
-    const md = 992;
-    const lg = 1200;
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
-
-        window.addEventListener("resize", handleWindowResize);
-
-        return () => {
-            window.removeEventListener("resize", handleWindowResize);
-        };
-    });
+    
+    const windowWidth = useContext(WindowWidthContext);
+    const sm = global.config.obj.size.sm;
+    const md = global.config.obj.size.md;
+    const lg = global.config.obj.size.lg;
 
     // const startHour = 10; // 10:00
     // const duration = 4; // booked for 4 hours
