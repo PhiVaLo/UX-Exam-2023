@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Login.css';
+import axios from 'axios';
+const apiUrl = "http://localhost:3002";
 
 
 function LoginForm() {
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
-    const [email, setEmail] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [university, setUniversity] = useState('');
+    const [university, setUniversity] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
+
     const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-        if (regex.test(email)) {
+        setUserEmail(event.target.value);
+        if (regex.test(userEmail)) {
             setErrorMessage('');
         }
     }
@@ -37,29 +40,93 @@ function LoginForm() {
 
     const handleUniversityChange = (event) => {
         setUniversity(event.target.value);
-        if (university.length !== 0) {
+
+        if (university !== 0) {
             setErrorMessage('')
         }
     }
 
+    const Universities = props => {
+//TODO Interact with data so show universities:
+        const [universitiesList, setUniversitiesList] = useState([]);
+        const unmountedRef = useRef(false);
+        //useEffect(()=>()=>(unmountedRef.current = true), []);
+
+        useEffect(() => {
+
+            (async function(){
+                let response = await axios.get(apiUrl + `/universities`);
+
+                if(unmountedRef.current) return;
+
+                const tempUniversities = [];
+                if (response.data) {
+                    for (const university of response.data) {
+                        tempUniversities.push(university);
+                    }
+
+                    setUniversitiesList(tempUniversities);
+                } else {
+                    console.error("Cannot find universities from api")
+                }
+
+            })();
+
+        }, [university]);
+
+
+            return (
+                <select
+                    className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
+                    onChange={handleUniversityChange}
+                    value={university}
+                >
+                    {universitiesList && universitiesList.map((university, index) => (<option value={index} key={index} >{university.university_name}</option>))}
+                </select>
+            )
+
+        };
+
+
+
+
+    const getOption = (value, label) => {
+        return (<option value={value} >{label}</option>);
+    }
+
     const handleLogin = (event) => { //Login Button Pressed
         event.preventDefault();
-        if (!regex.test(email)) {
+        /*if (!regex.test(userEmail)) {
             setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
             setErrorMessage('Password must be at least 8 characters in length');
             return;
+        }*/
+
+        const data = {
+            email:userEmail,
+            password:password
         }
-        // TODO: AJAX/Fetch login
-        // For now just set an error message
-        setErrorMessage('Invalid email/password combination');
+        axios.post(apiUrl + `/login`, data).then(function (response) {
+            if (response.status === 404){
+                console.error("Error connecting to the api, make sur backend is running!");
+            }
+            else if (response.headers.get('Login-status')){
+                // TODO implement successful login
+                console.log("Successful login!");
+            }else{
+                // TODO For now just set an error message
+                setErrorMessage('Invalid email/password combination');
+            }
+        });
+
     };
 
     const handleSignup = (event) => { //Sign Up Button Pressed
         event.preventDefault();
-        if (!regex.test(email)) {
+        if (!regex.test(userEmail)) {
             setErrorMessage('Not an Email');
             return;
         }
@@ -71,13 +138,23 @@ function LoginForm() {
             setErrorMessage('Passwords do not match');
             return;
         }
-        if (university.length === 0) {
-            setErrorMessage('Please choose a University');
-            return;
+
+        const data = {
+            name:"Dummy User name",
+            email:userEmail,
+            password:password,
+            university_id:university,
+            role:"Dummy"
         }
-        // TODO: AJAX/Fetch signup operation here.
-        // For now just set an error message
-        setErrorMessage('Signup is currently not implemented');
+        axios.post(apiUrl + '/users', data).then(response => {
+            if (response.status === 404){
+                console.error("Error connecting to the api\tMake sure it is running!");
+            }else if (response.status === 200){
+                console.log("Successfully created new user!");
+            }
+        });
+
+        setIsLoginFormActive(true);
     };
 
     const handleGuestLogin = (event) => {
@@ -99,7 +176,7 @@ function LoginForm() {
                                 className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
                                 autoFocus
                                 placeholder="Email"
-                                value={email}
+                                value={userEmail}
                                 onChange={handleEmailChange}
                             />
                             <div className="form-input-error-message"></div>
@@ -174,7 +251,7 @@ function LoginForm() {
                                 className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
                                 autoFocus
                                 placeholder="Email"
-                                value={email}
+                                value={userEmail}
                                 onChange={handleEmailChange}
                             />
                             <div className="form-input-error-message"></div>
@@ -200,17 +277,7 @@ function LoginForm() {
                             <div className="form-input-error-message"></div>
                         </div>
                         <div className="form-input-group">
-                            <select
-                                className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
-                                value={university}
-                                onChange={handleUniversityChange}
-                            >
-                                //TODO Interact with data so show universities:
-                                <option value="">Select University</option>
-                                <option value="university1">University 1</option>
-                                <option value="university2">University 2</option>
-                                <option value="university3">University 3</option>
-                            </select>
+                            {<Universities/>}
                             <div className="form-input-error-message"></div>
                         </div>
                         <button className="form-button" type="submit">Sign up</button>
