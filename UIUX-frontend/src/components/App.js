@@ -30,7 +30,7 @@ const App = () => {
             <div className="container debug-box">
                 <ChooseRoom />
             </div>
-{/* 
+
             <div className="container debug-box">
                 <Profile />
             </div>
@@ -41,19 +41,19 @@ const App = () => {
                     room={room}
                     duration={duration}
                 />
-            </div> */}
+            </div>
 
-            {/* <div className="container debug-box"> */}
-                {/* <LoginForm /> */}
-            {/* </div> */}
+            <div className="container debug-box">
+                <LoginForm />
+            </div>
 
-            {/* <div className="container debug-box"> */}
-                {/* <ModalAddParticipant /> */}
-            {/* </div> */}
+            <div className="container debug-box">
+                <ModalAddParticipant />
+            </div>
 
-            {/* <div className="container debug-box"> */}
-                {/* <ModalCancelBooking /> */}
-            {/* </div> */}
+            <div className="container debug-box">
+                <ModalCancelBooking />
+            </div>
 
         </div>
     );

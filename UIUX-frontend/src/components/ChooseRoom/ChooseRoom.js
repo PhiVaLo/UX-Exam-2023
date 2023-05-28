@@ -25,7 +25,7 @@ const ChooseRoom = () => {
     // const startHour = 10; // 10:00
     // const duration = 4; // booked for 4 hours
 
-    const booked = (startHour, duration, username) => {
+    const booked = (startHour, duration, username, role) => {
         const height = 40;
         return (
             <div
@@ -33,6 +33,8 @@ const ChooseRoom = () => {
                 style={{
                     top: height * (startHour - 8 + 1),
                     height: duration * height,
+                    backgroundColor: role == 'student' ? '#beff88bf' : '#e75a76d2',
+                    
                 }}
             >
                 {startHour}:00 - {startHour + duration}:00,
@@ -80,7 +82,7 @@ const ChooseRoom = () => {
                 <div className="container-right">
                     <div className="date">
                         <div>27/05</div>
-                        {booked(10, 2, "Phi Va Lo")}
+                        {booked(10, 2, "Phi Va Lo", 'student')}
                         {booked(13, 1, "phi-1234567899999999999999999999999999"
                         )}
                     </div>
@@ -90,7 +92,7 @@ const ChooseRoom = () => {
                     <div className="date">
                         <div>28/05</div>
                         {booked(8, 2, "phiy")}
-                        {booked(15, 2, "phiy")}
+                        {booked(15, 2, "phiy", 'student')}
                     </div>
                 </div>
 
