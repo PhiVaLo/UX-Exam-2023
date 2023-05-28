@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./ChooseRoom.css";
 
-import { WindowWidthContext } from '../WindowWidthContext';
-import '../config'
+import { WindowWidthContext } from "../WindowWidthContext";
+import "../config";
 
 const ChooseRoom = () => {
-    
     const windowWidth = useContext(WindowWidthContext);
     const sm = global.config.obj.size.sm;
     const md = global.config.obj.size.md;
@@ -13,6 +12,17 @@ const ChooseRoom = () => {
 
     // const startHour = 10; // 10:00
     // const duration = 4; // booked for 4 hours
+
+    const [selectedOptionDate, setSelectedOptionDate] = useState("");
+    const [selectedOptionTime, setSelectedOptionTime] = useState("");
+
+    const handleOptionDateChange = (event) => {
+        setSelectedOptionDate(event.target.value);
+    };
+
+    const handleOptionTimeChange = (event) => {
+        setSelectedOptionTime(event.target.value);
+    };
 
     const booked = (startHour, duration, username, role) => {
         const height = 40;
@@ -22,8 +32,8 @@ const ChooseRoom = () => {
                 style={{
                     top: height * (startHour - 8 + 1),
                     height: duration * height,
-                    backgroundColor: role == 'student' ? '#beff88bf' : '#e75a76d2',
-                    
+                    backgroundColor:
+                        role == "student" ? "#beff88bf" : "#e75a76d2",
                 }}
             >
                 {startHour}:00 - {startHour + duration}:00,
@@ -71,8 +81,11 @@ const ChooseRoom = () => {
                 <div className="container-right">
                     <div className="date">
                         <div>27/05</div>
-                        {booked(10, 2, "Phi Va Lo", 'student')}
-                        {booked(13, 1, "phi-1234567899999999999999999999999999"
+                        {booked(10, 2, "Phi Va Lo", "student")}
+                        {booked(
+                            13,
+                            1,
+                            "phi-1234567899999999999999999999999999"
                         )}
                     </div>
                 </div>
@@ -81,7 +94,7 @@ const ChooseRoom = () => {
                     <div className="date">
                         <div>28/05</div>
                         {booked(8, 2, "phiy")}
-                        {booked(15, 2, "phiy", 'student')}
+                        {booked(15, 2, "phiy", "student")}
                     </div>
                 </div>
 
@@ -117,21 +130,44 @@ const ChooseRoom = () => {
                 ) : (
                     ""
                 )}
-
-
-
-
-
-
-
-
-
-
             </div>
+
             {/* -------------------------------------------------------------- */}
-            <button type="button" className="btn book-time-btn">
+
+            <hr />
+
+            <p className="center"><b>Select a date/time to book</b></p>
+            <div className="book-time">
+                <select value={selectedOptionDate} onChange={handleOptionDateChange} className="select-menu box1">
+                    <option value="">Date</option>
+                    <option value="option1">27/05</option>
+                    <option value="option2">28/05</option>
+                    <option value="option3">29/05</option>
+                    <option value="option5">30/05</option>
+                    <option value="option6">31/05</option>
+                    <option value="option7">01/06</option>
+                </select>
+                <select value={selectedOptionTime} onChange={handleOptionTimeChange} className="select-menu box2">
+                    <option value="">Time</option>
+                    <option value="option1">08:00 - 09:00</option>
+                    <option value="option2">09:00 - 10:00</option>
+                    <option value="option3">10:00 - 11:00</option>
+                    <option value="option4">11:00 - 12:00</option>
+                    <option value="option5">12:00 - 13:00</option>
+                    <option value="option6">13:00 - 14:00</option>
+                    <option value="option7">14:00 - 15:00</option>
+                    <option value="option8">15:00 - 16:00</option>
+                    <option value="option9">16:00 - 17:00</option>
+                </select>
+                <button type="button" className="btn book-time-btn box3">
+                    Book Time
+                </button>                
+            </div>
+
+            {/* -------------------------------------------------------------- */}
+            {/* <button type="button" className="btn book-time-btn">
                 Book Time
-            </button>
+            </button> */}
         </div>
     );
 };
