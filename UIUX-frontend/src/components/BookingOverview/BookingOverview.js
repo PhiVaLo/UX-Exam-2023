@@ -71,13 +71,14 @@ const BookingOverview = (props) => {
 
         bookingParticipants.forEach((participant) => {
             list.push(
-                <p><b>Participants</b>: {participant}</p>
+                <p>{participant}</p>
             )
         })
 
         return (
             <div>
-                {list}
+                <p><b>Participants</b>: {list}</p>
+
             </div>
         )
     }
