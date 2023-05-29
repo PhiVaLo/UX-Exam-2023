@@ -12,29 +12,29 @@ import Profile from "./components/Profile/Profile";
 import RoomsOverview from "./components/RoomsOverview/RoomsOverview";
 import Navigation from "./components/Navigation/Navigation";
 import ChooseRoom from "./components/ChooseRoom/ChooseRoom";
+import Login from "./components/Login/Login";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App/>,
+        element: <App/>, //Need to be login
     },
     {
-        path: "/Hello",
-        element: <HelloWorld/>,
-    },
-    {
-        path: "/RoomsOverview",
+        path: "/roomsoverview",
         element: <RoomsOverview/>,
     },
     {
-        path: "/ChooseRoom",
+        path: "/roomsoverview/room",
         element: <ChooseRoom/>,
     },
     {
-        path: "/Profile",
+        path: "/profile",
         element: <Profile/>,
     },
-
+    {
+        path: "/bookingoverview",
+        element: <BookingOverview/>,
+    },
 
 ]);
 

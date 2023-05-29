@@ -4,6 +4,7 @@ import "./Profile.css";
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
+import Navigation from "../Navigation/Navigation";
 const apiUrl = "http://localhost:3002";
 const Profile = () => {
     //const userId = {}; //TODO get current user_id
@@ -100,6 +101,8 @@ const Profile = () => {
     }
 
     return (
+        <div>
+            <Navigation/>
         <div className="profile m-4">
             <div>
                 <h2>Profile</h2>
@@ -125,6 +128,7 @@ const Profile = () => {
             {RoomList}
 
             <div/>
+        </div>
         </div>
     );
 }

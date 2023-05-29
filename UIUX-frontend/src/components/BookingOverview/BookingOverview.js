@@ -84,6 +84,8 @@ const BookingOverview = (props) => {
     }
 
     return (
+        <div>
+            <Navigation/>
         <div className='booking-overview m-4'>
             <div>
                 <h2>Booking Information</h2>

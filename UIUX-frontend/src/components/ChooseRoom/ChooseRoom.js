@@ -3,6 +3,9 @@ import "./ChooseRoom.css";
 
 import { WindowWidthContext } from "../WindowWidthContext";
 import "../config";
+import Navigation from "../Navigation/Navigation";
+
+import {Day} from "../RoomsOverview/RoomsOverview";
 
 const ChooseRoom = () => {
     const windowWidth = useContext(WindowWidthContext);
@@ -56,6 +59,9 @@ const ChooseRoom = () => {
     };
 
     return (
+        <div>
+            <Navigation/>
+
         <div className="m-4">
             <h2>Room Name</h2>
             <hr />
@@ -187,6 +193,7 @@ const ChooseRoom = () => {
                     <option value="option8">16:00</option>
                     <option value="option9">17:00</option>
                 </select>
+                {/*TODO Button needs function on click*/}
                 <button type="button" className="btn book-time-btn">
                     Book Time
                 </button>                
@@ -196,6 +203,7 @@ const ChooseRoom = () => {
             {/* <button type="button" className="btn book-time-btn">
                 Book Time
             </button> */}
+        </div>
         </div>
     );
 };

@@ -7,15 +7,13 @@ import axios from 'axios';
 import Navigation from "../Navigation/Navigation";
 //const apiUrl = "http://localhost:3001";
 const apiUrl = "http://localhost:3002";
+//import {User} from "../Login/Login";
 
 const RoomsOverview = () => {
     const currentDate = new Date();
-    let o = new Date();
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
 
-    const rooms = [];
-    rooms.push(); //TODO Push all relevant values from sqlite database
 
     const rightArrow = (event) => {
         event.preventDefault();
