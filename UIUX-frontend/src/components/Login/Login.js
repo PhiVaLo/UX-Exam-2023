@@ -3,11 +3,10 @@ import './Login.css';
 import axios from 'axios';
 const apiUrl = "http://localhost:3002";
 
-const user = {};
+export let User = {};
+export let GuestBookingId;
 
 function LoginForm() {
-    let User;
-    let GuestBookingId;
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
