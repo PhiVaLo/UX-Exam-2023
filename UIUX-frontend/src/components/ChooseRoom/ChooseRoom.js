@@ -14,15 +14,23 @@ const ChooseRoom = () => {
     // const duration = 4; // booked for 4 hours
 
     const [selectedOptionDate, setSelectedOptionDate] = useState("");
-    const [selectedOptionTime, setSelectedOptionTime] = useState("");
+    const [selectedOptionTimeStart, setSelectedOptionTimeStart] = useState("");
+    const [selectedOptionTimeEnd, setSelectedOptionTimeEnd] = useState("");
 
     const handleOptionDateChange = (event) => {
         setSelectedOptionDate(event.target.value);
     };
 
-    const handleOptionTimeChange = (event) => {
-        setSelectedOptionTime(event.target.value);
+    const handleOptionTimeStartChange = (event) => {
+        setSelectedOptionTimeStart(event.target.value);
     };
+
+    const handleOptionTimeEndChange = (event) => {
+        setSelectedOptionTimeEnd(event.target.value);
+    };
+
+    // TODO - startHour (all available timeslots (08-16))
+    // TODO - duration (all available timeslots up to the next booked-startHour)
 
     const booked = (startHour, duration, username, role) => {
         const height = 40;
@@ -80,6 +88,7 @@ const ChooseRoom = () => {
 
                 <div className="container-right">
                     <div className="date">
+                        {/* update date to currentDate */}
                         <div>27/05</div>
                         {booked(10, 2, "Phi Va Lo", "student")}
                         {booked(
@@ -92,6 +101,7 @@ const ChooseRoom = () => {
 
                 <div className="container-right">
                     <div className="date">
+                        {/* update date to currentDate+1 */}
                         <div>28/05</div>
                         {booked(8, 2, "phiy")}
                         {booked(15, 2, "phiy", "student")}
@@ -101,28 +111,31 @@ const ChooseRoom = () => {
                 {windowWidth >= sm ? (
                     <div className="container-right">
                         <div className="date">
+                            {/* update date to currentDate+2 */}
                             <div>29/05</div>
                             {booked(9, 5, "abc")}
                         </div>
                     </div>
                 ) : (
                     ""
-                )}
+                    )}
 
                 {windowWidth >= md ? (
                     <div className="container-right">
                         <div className="date">
+                        {/* update date to currentDate+3 */}
                             <div>30/05</div>
                             {booked(10, 1, "abc")}
                         </div>
                     </div>
                 ) : (
                     ""
-                )}
+                    )}
 
                 {windowWidth >= lg ? (
                     <div className="container-right">
                         <div className="date">
+                        {/* update date to currentDate+4 */}
                             <div>31/05</div>
                             {booked(11, 1, "abc")}
                         </div>
@@ -140,6 +153,7 @@ const ChooseRoom = () => {
             <div className="book-time">
                 <select value={selectedOptionDate} onChange={handleOptionDateChange} className="select-menu box1">
                     <option value="">Date</option>
+                    {/* TODO: update date to currentDate, currentDate+1, ... */}
                     <option value="option1">27/05</option>
                     <option value="option2">28/05</option>
                     <option value="option3">29/05</option>
@@ -147,19 +161,33 @@ const ChooseRoom = () => {
                     <option value="option6">31/05</option>
                     <option value="option7">01/06</option>
                 </select>
-                <select value={selectedOptionTime} onChange={handleOptionTimeChange} className="select-menu box2">
-                    <option value="">Time</option>
-                    <option value="option1">08:00 - 09:00</option>
-                    <option value="option2">09:00 - 10:00</option>
-                    <option value="option3">10:00 - 11:00</option>
-                    <option value="option4">11:00 - 12:00</option>
-                    <option value="option5">12:00 - 13:00</option>
-                    <option value="option6">13:00 - 14:00</option>
-                    <option value="option7">14:00 - 15:00</option>
-                    <option value="option8">15:00 - 16:00</option>
-                    <option value="option9">16:00 - 17:00</option>
+                <select value={selectedOptionTimeStart} onChange={handleOptionTimeStartChange} className="select-menu box2">
+                    <option value="">Start-Time</option>
+                    {/* TODO: update time that is available */}
+                    <option value="option1">08:00</option>
+                    <option value="option2">09:00</option>
+                    <option value="option3">10:00</option>
+                    <option value="option4">11:00</option>
+                    <option value="option5">12:00</option>
+                    <option value="option6">13:00</option>
+                    <option value="option7">14:00</option>
+                    <option value="option8">15:00</option>
+                    <option value="option9">16:00</option>
                 </select>
-                <button type="button" className="btn book-time-btn box3">
+                <select value={selectedOptionTimeEnd} onChange={handleOptionTimeEndChange} className="select-menu box2">
+                    <option value="">End-Time</option>
+                    {/* TODO: update time that is available in range */}
+                    <option value="option1">09:00</option>
+                    <option value="option2">10:00</option>
+                    <option value="option3">11:00</option>
+                    <option value="option4">12:00</option>
+                    <option value="option5">13:00</option>
+                    <option value="option6">14:00</option>
+                    <option value="option7">15:00</option>
+                    <option value="option8">16:00</option>
+                    <option value="option9">17:00</option>
+                </select>
+                <button type="button" className="btn book-time-btn">
                     Book Time
                 </button>                
             </div>

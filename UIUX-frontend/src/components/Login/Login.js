@@ -3,6 +3,8 @@ import './Login.css';
 import axios from 'axios';
 const apiUrl = "http://localhost:3002";
 
+const user = {};
+
 function LoginForm() {
     let User;
     let GuestBookingId;

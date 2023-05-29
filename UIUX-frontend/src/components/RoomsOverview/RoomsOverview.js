@@ -32,7 +32,7 @@ const RoomsOverview = () => {
         return `${date.getDate()}/${date.getMonth()}`;
     }
 
-    const Grid = props => {
+    const Grid = (props) => {
         const [roomsMap, setRoomsMap] = useState(new Map());
         const grids = [];
 
@@ -129,7 +129,7 @@ const RoomsOverview = () => {
     return (
         <div className='rooms-overview'>
 
-            <div className='date-container'>
+            <div className='dates-container'>
                 <form className="my-date">{getDate()}</form>
 
                 <button className='date-backward'>
@@ -149,6 +149,7 @@ const RoomsOverview = () => {
     )
 }
 function redirect(room) {//TODO needs to redirect to chosen room
+    // Method gets called every time useEffect from App is activated.
 
 }
 
