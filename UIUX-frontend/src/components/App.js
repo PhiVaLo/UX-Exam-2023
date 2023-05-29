@@ -6,16 +6,12 @@ import Profile from "./Profile/Profile";
 import BookingOverview from "./BookingOverview/BookingOverview";
 import ChooseRoom from "./ChooseRoom/ChooseRoom";
 
-<<<<<<<<< Temporary merge branch 1
 import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking"
 import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
 import RoomsOverview from "./RoomsOverview/RoomsOverview";
-=========
-import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking";
-import ModalAddParticipant from "./ModalAddParticipant/ModalAddParticipant";
+
 
 import { WindowWidthProvider } from "./WindowWidthContext";
->>>>>>>>> Temporary merge branch 2
 
 const App = () => {
     //? test database-----------------
@@ -24,10 +20,8 @@ const App = () => {
 
     const [participantsState, setParticipantsState] = useState([]);
 
-<<<<<<<<< Temporary merge branch 1
     // TODO Remove for final build
-=========
->>>>>>>>> Temporary merge branch 2
+
     useEffect(() => {
         setTimeout(() => {
             setParticipantsState(["phiy", "tily", "kkni", "ptso", "omse"]);
@@ -56,19 +50,10 @@ const App = () => {
                     />
                 </div>
 
-<<<<<<<<< Temporary merge branch 1
             <LoginForm/>
             <div style={{margin: "30px 0"}}></div><hr />
 
             <RoomsOverview/>
-        </div>
-    )
-}
-=========
-                <div className="container debug-box">
-                    <LoginForm />
-                </div>
->>>>>>>>> Temporary merge branch 2
 
                 <div className="container debug-box">
                     <ModalAddParticipant />
@@ -83,7 +68,10 @@ const App = () => {
                 </div>
             </div>
         </WindowWidthProvider>
-    );
+
+    )
 };
+
+
 
 export default App;

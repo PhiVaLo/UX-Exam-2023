@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './BookingOverview.css'
 import ModalAddParticipant from '../ModalAddParticipant/ModalAddParticipant'
 import ModalCancelBooking from '../ModalCancelBooking/ModalCancelBooking'
-
+import {Room, RoomBookingMap} from "../RoomsOverview/RoomsOverview";
 //import { FaBars, FaTimes, FaUser } from 'react-icons/fa'
 
 
 const BookingOverview = (props) => {
-
+    console.log(Room);
     const hours = Math.floor(props.duration/60)
     const minutes = props.duration % 60
 
@@ -28,6 +28,9 @@ const BookingOverview = (props) => {
       setShowCancelModal(false);
     };
 
+    const getBookingParticipants = () => {
+
+    }
 
     
     return (
@@ -37,7 +40,7 @@ const BookingOverview = (props) => {
                 <hr />
             </div>
             <div>
-                <p><b>Room name</b>: {props.room}</p>
+                <p><b>Room name</b>: {Room ? Room.name : "No room selected"}</p>
                 <p><b>Time</b>: {hours >= 1 ? (<span>{hours} hours </span>) : null} {minutes > 0 ? (<span>{minutes} minutes </span>) : null}  </p>
                 <p><b>Parcicipants</b>: {props.participants.map((participant) => { return <span key={participant}>{participant}, </span> })}</p>
             </div>

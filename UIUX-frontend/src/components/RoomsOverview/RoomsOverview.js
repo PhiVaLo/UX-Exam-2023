@@ -4,8 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import {User} from "../Login/Login";
 //const apiUrl = "http://localhost:3001";
 const apiUrl = "http://localhost:3002";
+
+export let Room;
+export const RoomBookingMap = new Map();
 
 const RoomsOverview = () => {
     const currentDate = new Date();
@@ -27,14 +31,22 @@ const RoomsOverview = () => {
     }
 
     const getDate = () => {
-        let date = currentDate;
+        const date = currentDate;
         date.setDate(currentDate.getDate() + day);
         return `${date.getDate()}/${date.getMonth()}`;
     }
 
-    const Grid = (props) => {
+    const getDateInMilliseconds = () => {
+        const date = currentDate;
+        date.setDate(currentDate.getDate() + day);
+        date.setHours(0, 0, 0);
+        return date.getTime();
+    }
+
+    const Grid = props => {
         const [roomsMap, setRoomsMap] = useState(new Map());
-        const grids = [];
+        const [bookingMap, setBookingMap] = useState(new Map());
+        const [grids, setGrids] = useState([]);
 
         //let id = 'ID' //TODO Import id from logged in user
         let id = 1;
@@ -66,39 +78,50 @@ const RoomsOverview = () => {
                     }
                 }
 
+                const bookingMapTemp = new Map();
+                const curTime = getDateInMilliseconds();
+                // Offset can be changed default 24 hours
+                const offset = 86400000;
+                const toTime = curTime + offset;
+                const tempGrids = [];
+
+                for (const [key, value] of roomsMapTemp) {
+                    const colList = [];
+                    for (const room of value){
+                        const response = await axios.get(apiUrl + `/rooms/${room.room_id}/bookings/${curTime}&${toTime}`);
+                        let statusColor = "status-green";
+
+                        if (response.data === 'OK'){
+                            console.log("No bookings found for room");
+                            RoomBookingMap.set(room, []);
+                        }else{
+                            RoomBookingMap.set(room, response.data);
+                            if (response.data.length < 3){
+                                statusColor = 'status-green';
+                            }else if (response.data.length < 6){
+                                statusColor = 'status-yellow';
+                            }else{
+                                statusColor = 'status-red';
+                            }
+                        }
+
+                        colList.push(<Col onClick={() => redirect(room)} className={`colBox ${statusColor}`}>
+                            <strong>{room.name}</strong>
+                            {/*<p className='colBox-info'><strong>Status:</strong> {status}</p>*/}
+                        </Col>);
+                    }
+                    tempGrids.push(
+                        <h1 className='rowHeader'>{key.name}</h1>,
+                        <Row className='rowGrid' xs={4} md={5} lg={6}>
+                            {colList}
+                        </Row>
+                    );
+                }
+
                 setRoomsMap(roomsMapTemp);
+                setGrids(tempGrids);
             })();
         }, [onetime]);
-
-
-        const colorList = new Map([
-            ['Very', 'status-red'],
-            ['Average', 'status-yellow'],
-            ['Mildly', 'status-green']
-        ]);
-
-        roomsMap.forEach((roomList, location) => {
-
-            console.log("drawing grid");
-            const colList = [];
-
-            for (const room of roomList) {
-                // TODO function to calculate room bookings (colors)
-                const status = "Very";
-                colList.push(<Col onClick={redirect(room)} className={`colBox ${colorList.get(status)}`}>
-                    <strong>{room.name}</strong>
-                    {/*<p className='colBox-info'><strong>Status:</strong> {status}</p>*/}
-                </Col>);
-            }
-
-            grids.push(
-                <h1 className='rowHeader'>{location.name}</h1>,
-                <Row className='rowGrid' xs={4} md={5} lg={6}>
-                    {colList}
-                </Row>
-            );
-        })
-
 
 
         return (
@@ -108,28 +131,12 @@ const RoomsOverview = () => {
         )
     }
 
-    //Test case:
-    /*let testa = [];
-    testa.push(
-        <h1 className='rowHeader'>location.name</h1>,
-        <Row className='rowGrid' xs={4} md={5} lg={6}>
-            <Col className='colBox status-green'>
-                <strong>Room1</strong>
 
-                <p className='colBox-info'><strong>Status:</strong> Fully Booked</p>
-            </Col>
-            <Col className='colBox'>Room2</Col>
-            <Col className='colBox'>Room3</Col>
-            <Col className='colBox'>Room4</Col>
-            <Col className='colBox'>Room5</Col>
-            <Col className='colBox'>Room6</Col>
-        </Row>
-    )*/
 
     return (
         <div className='rooms-overview'>
 
-            <div className='dates-container'>
+            <div className='date-container'>
                 <form className="my-date">{getDate()}</form>
 
                 <button className='date-backward'>
@@ -149,8 +156,7 @@ const RoomsOverview = () => {
     )
 }
 function redirect(room) {//TODO needs to redirect to chosen room
-    // Method gets called every time useEffect from App is activated.
-
+    Room = room;
 }
 
 

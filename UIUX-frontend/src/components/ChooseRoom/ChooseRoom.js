@@ -2,9 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 import "./ChooseRoom.css";
 
 import { WindowWidthContext } from "../WindowWidthContext";
+import {Room} from "../RoomsOverview/RoomsOverview";
 import "../config";
 
 const ChooseRoom = () => {
+    const [day, setDay] = useState(0);
+    const rightArrow = (event) => {
+        event.preventDefault();
+        setDay(increaseDay => increaseDay + 1);
+    }
+
+    const leftArrow = (event) => {
+        event.preventDefault();
+        setDay(decreaseDay => decreaseDay - 1);
+    }
     const windowWidth = useContext(WindowWidthContext);
     const sm = global.config.obj.size.sm;
     const md = global.config.obj.size.md;
@@ -31,6 +42,10 @@ const ChooseRoom = () => {
 
     // TODO - startHour (all available timeslots (08-16))
     // TODO - duration (all available timeslots up to the next booked-startHour)
+
+    const getBookingsByDate = (date) => {
+
+    }
 
     const booked = (startHour, duration, username, role) => {
         const height = 40;
@@ -61,11 +76,11 @@ const ChooseRoom = () => {
             <hr />
             {/* -------------------------------------------------------------- */}
             <div className="date-box mb-4">
-                <button type="button" className="btn">
+                <button type="button" onClick={leftArrow} className="btn">
                     <span className="fa-solid fa-angle-left"></span>
                 </button>
                 <span>Date</span>
-                <button type="button" className="btn">
+                <button type="button" onClick={rightArrow} className="btn">
                     <span className="fa-solid fa-angle-right"></span>
                 </button>
             </div>
@@ -88,7 +103,7 @@ const ChooseRoom = () => {
 
                 <div className="container-right">
                     <div className="date">
-                        {/* update date to currentDate */}
+                        {() => getBookingsByDate(new Date().getTime() % 86400000 + day)}
                         <div>27/05</div>
                         {booked(10, 2, "Phi Va Lo", "student")}
                         {booked(
@@ -101,6 +116,7 @@ const ChooseRoom = () => {
 
                 <div className="container-right">
                     <div className="date">
+                        {() => getBookingsByDate((new Date().getTime() + 86400000) % 86400000 + day)}
                         {/* update date to currentDate+1 */}
                         <div>28/05</div>
                         {booked(8, 2, "phiy")}
@@ -111,6 +127,8 @@ const ChooseRoom = () => {
                 {windowWidth >= sm ? (
                     <div className="container-right">
                         <div className="date">
+                            {() => getBookingsByDate((new Date().getTime() + 86400000 * 2) % 86400000 + day)}
+
                             {/* update date to currentDate+2 */}
                             <div>29/05</div>
                             {booked(9, 5, "abc")}
@@ -123,7 +141,8 @@ const ChooseRoom = () => {
                 {windowWidth >= md ? (
                     <div className="container-right">
                         <div className="date">
-                        {/* update date to currentDate+3 */}
+                            {() => getBookingsByDate((new Date().getTime() + 86400000 * 3) % 86400000 + day)}
+                            {/* update date to currentDate+3 */}
                             <div>30/05</div>
                             {booked(10, 1, "abc")}
                         </div>

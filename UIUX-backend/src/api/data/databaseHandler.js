@@ -97,9 +97,9 @@ module.exports.addRoom = function addRoom(room){
         .run(room.name, room.location_id, room.restriction, room.university_id);
 }
 
-module.exports.getAllBookingsByRoom = function getAllBookingsByRoom(roomId){
-    return db.prepare('SELECT ALL * FROM bookings WHERE room_id = ?')
-        .all(roomId);
+module.exports.getAllBookingsByRoom = function getAllBookingsByRoom(roomId, timeFrom, timeTo){
+    return db.prepare('SELECT ALL * FROM bookings WHERE room_id = ? AND (date_time > ? AND date_time < ?)')
+        .all(roomId, timeFrom, timeTo);
 }
 
 module.exports.getBookingByRoom = function getBookingByRoom(roomId, bookingId){
@@ -108,8 +108,8 @@ module.exports.getBookingByRoom = function getBookingByRoom(roomId, bookingId){
 }
 
 function addBooking(booking){
-    db.prepare('INSERT INTO bookings (room_id, owner_id, description, date_time) VALUES (?, ?, ?, ?)')
-        .run(booking.room_id, booking.owner_id, booking.description, booking.date_time);
+    db.prepare('INSERT INTO bookings (room_id, owner_id, description, date_time, university_id, duration) VALUES (?, ?, ?, ?, ?, ?)')
+        .run(booking.room_id, booking.owner_id, booking.description, booking.time, booking.university_id, booking.duration);
     return db.prepare('SELECT last_insert_rowid()')
         .get();
 }
