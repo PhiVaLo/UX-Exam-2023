@@ -1,3 +1,4 @@
+import './Login.css'
 import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import "../config";
@@ -216,6 +217,7 @@ function LoginForm() {
                         <a href="#" className="form-link" onClick={() => {
                             setIsLoginFormActive(false);
                             setIsGuestFormActive(true);
+                            setErrorMessage('');
                         }}
                         >
                             Continue as guest
