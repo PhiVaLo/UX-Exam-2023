@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Login.css';
 import axios from 'axios';
-const apiUrl = "http://localhost:3001";
+const apiUrl = "http://localhost:3002";
 
+const user = {};
 
 function LoginForm() {
+    let User;
+    let GuestBookingId;
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [university, setUniversity] = useState('');
+    const [university, setUniversity] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+
 
     const handleEmailChange = (event) => {
         setUserEmail(event.target.value);
@@ -39,28 +43,86 @@ function LoginForm() {
 
     const handleUniversityChange = (event) => {
         setUniversity(event.target.value);
-        if (university.length !== 0) {
+
+        if (university !== 0) {
             setErrorMessage('')
         }
     }
 
+    const Universities = props => {
+        const [universitiesList, setUniversitiesList] = useState([]);
+        const unmountedRef = useRef(false);
+        //useEffect(()=>()=>(unmountedRef.current = true), []);
+
+        useEffect(() => {
+
+            (async function(){
+                let response = await axios.get(apiUrl + `/universities`);
+
+                if(unmountedRef.current) return;
+
+                const tempUniversities = [];
+                if (response.data) {
+                    for (const university of response.data) {
+                        tempUniversities.push(university);
+                    }
+
+                    setUniversitiesList(tempUniversities);
+                } else {
+                    console.error("Cannot find universities from api")
+                }
+
+            })();
+
+        }, [university]);
+
+
+            return (
+                <select
+                    className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
+                    onChange={handleUniversityChange}
+                    value={university}
+                >
+                    {universitiesList && universitiesList.map((university, index) => (<option value={index} key={index} >{university.university_name}</option>))}
+                </select>
+            )
+
+        };
+
+
+
+
+    const getOption = (value, label) => {
+        return (<option value={value} >{label}</option>);
+    }
+
     const handleLogin = (event) => { //Login Button Pressed
         event.preventDefault();
-        /*if (!regex.test(userEmail)) {
+
+        if (!regex.test(userEmail)) {
             setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
             setErrorMessage('Password must be at least 8 characters in length');
             return;
-        }*/
+        }
 
-        axios.get(apiUrl + `/login/${userEmail}&${password}`).then(function (response) {
-            if (response.data){
-                // TODO implement successful login
-                console.log("Successful login!");
+        const data = {
+            email:userEmail,
+            password:password
+        }
+        axios.post(apiUrl + `/login`, data).then(function (response) {
+            if (response.status === 404){
+                console.error("Error connecting to the api, make sur backend is running!");
+            }
+            else if (response.headers.get('Login-status') == 1){
+                // TODO redirect to correct url
+                axios.get(apiUrl + `/user/email/${userEmail}`).then(response => {
+                   User = response.data;
+                    window.location.href = "/hello";
+                });
             }else{
-                // TODO For now just set an error message
                 setErrorMessage('Invalid email/password combination');
             }
         });
@@ -81,18 +143,37 @@ function LoginForm() {
             setErrorMessage('Passwords do not match');
             return;
         }
-        if (university.length === 0) {
-            setErrorMessage('Please choose a University');
-            return;
+
+        const data = {
+            name:"Dummy User name",
+            email:userEmail,
+            password:password,
+            university_id:university,
+            role:"Dummy"
         }
-        // TODO: AJAX/Fetch signup operation here.
-        // For now just set an error message
-        setErrorMessage('Signup is currently not implemented');
+        axios.post(apiUrl + '/users', data).then(response => {
+            if (response.status === 404){
+                console.error("Error connecting to the api\tMake sure it is running!");
+            }else if (response.status === 200){
+                console.log("Successfully created new user!");
+            }
+        });
+
+        setIsLoginFormActive(true);
     };
 
     const handleGuestLogin = (event) => {
         event.preventDefault();
-        //TODO Implement datacheck against ID and University
+        axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
+            if (response.data !== 'OK'){
+                //TODO redirect to correct url
+                User = false;
+                GuestBookingId = response.data;
+                window.location.href = "/hello";
+            }else{
+                setErrorMessage('Not a valid guest ID');
+            }
+        });
     }
 
 
@@ -124,9 +205,9 @@ function LoginForm() {
                         <div className="form-input-error-message"></div>
                     </div>
                     <button className="form-button" type="submit">Log in</button>
-                    <p className="form-text">
+                    {/*<p className="form-text">
                         <a href="#" className="form-link">Forgot your password?</a>
-                    </p>
+                    </p>*/}
                     <p className="form-text">
                         <a
                             className="form-link"
@@ -209,17 +290,7 @@ function LoginForm() {
                         <div className="form-input-error-message"></div>
                     </div>
                     <div className="form-input-group">
-                        <select
-                            className={`form-input ${errorMessage.includes('University') ? 'form-input-error' : ''}`}
-                            value={university}
-                            onChange={handleUniversityChange}
-                        >
-                            //TODO Interact with data so show universities:
-                            <option value="">Select University</option>
-                            <option value="university1">University 1</option>
-                            <option value="university2">University 2</option>
-                            <option value="university3">University 3</option>
-                        </select>
+                        {<Universities/>}
                         <div className="form-input-error-message"></div>
                     </div>
                     <button className="form-button" type="submit">Sign up</button>

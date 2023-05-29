@@ -34,7 +34,7 @@ function getUserEmailAndPasscode(email, password){
         .run(user.first_name, user.email, user.passcode, user.role);
 }*/
 function addUser(user) {
-    db.prepare('INSERT INTO users (name, email, password, role, university_id) VALUES (?, ?, ?, ?)')
+    db.prepare('INSERT INTO users (name, email, password, role, university_id) VALUES (?, ?, ?, ?, ?)')
         .run(user.name, user.email, user.password, user.role, user.university_id);
 }
 
@@ -48,7 +48,7 @@ function addNewUniversity(university){
         .run(university.university_name);
 }
 
-function getBookingsByUserID(userId) {
+function getBookingsByUserID(userId, time) {
    return db.prepare('SELECT ALL FROM bookings WHERE owner_id = ?').all(userId);
 }
 
@@ -82,6 +82,11 @@ function getBookingByUniversity (universityId){
         .get(universityId);
 }
 
+module.exports.getBooking = function (bookingId) {
+    return db.prepare('SELECT * FROM bookings WHERE booking_id = ?')
+        .get(bookingId);
+}
+
 module.exports.getRoom = function getRoom(roomId){
     return db.prepare('SELECT * FROM rooms WHERE room_id = ?')
         .get(roomId);
@@ -92,9 +97,9 @@ module.exports.addRoom = function addRoom(room){
         .run(room.name, room.location_id, room.restriction, room.university_id);
 }
 
-module.exports.getAllBookingsByRoom = function getAllBookingsByRoom(roomId){
-    return db.prepare('SELECT ALL * FROM bookings WHERE room_id = ?')
-        .all(roomId);
+module.exports.getAllBookingsByRoom = function getAllBookingsByRoom(roomId, timeFrom, timeTo){
+    return db.prepare('SELECT ALL * FROM bookings WHERE room_id = ? AND (date_time > ? AND date_time < ?)')
+        .all(roomId, timeFrom, timeTo);
 }
 
 module.exports.getBookingByRoom = function getBookingByRoom(roomId, bookingId){
@@ -103,8 +108,8 @@ module.exports.getBookingByRoom = function getBookingByRoom(roomId, bookingId){
 }
 
 function addBooking(booking){
-    db.prepare('INSERT INTO bookings (room_id, owner_id, description, date_time) VALUES (?, ?, ?, ?)')
-        .run(booking.room_id, booking.owner_id, booking.description, booking.date_time);
+    db.prepare('INSERT INTO bookings (room_id, owner_id, description, date_time, university_id, duration) VALUES (?, ?, ?, ?, ?, ?)')
+        .run(booking.room_id, booking.owner_id, booking.description, booking.time, booking.university_id, booking.duration);
     return db.prepare('SELECT last_insert_rowid()')
         .get();
 }
@@ -120,7 +125,7 @@ module.exports.getUsersInBooking = function getUsersInBooking(booking_id){
 }
 
 module.exports.getAllLocationsInUniversity = function (universityId){
-    return db.prepare('SELECT ALL * FROM locations WHERE university_id = ?')
+    return db.prepare('SELECT ALL * FROM locations WHERE university_id = ? ORDER BY name' )
         .all(universityId);
 }
 
@@ -130,7 +135,7 @@ module.exports.addLocation = function (location){
 }
 
 module.exports.getRoomsInLocation = function (locationId){
-    return db.prepare('SELECT ALL * FROM rooms WHERE location_id = ?')
+    return db.prepare('SELECT ALL * FROM rooms WHERE location_id = ? ORDER BY name')
         .all(locationId);
 }
 

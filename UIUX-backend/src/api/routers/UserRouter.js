@@ -6,9 +6,9 @@ const {addUser, getUser, getUserEmail, getUserEmailAndPasscode, userEmailExist, 
 module.exports.UserRouter = class extends ApiRouterCore{
     setupRoutes(){
         this.router.get("/:userId", this.getUserById);
-        this.router.get("/:userId/bookings", this.getBookingsByUserID);
-        this.router.get("/:userId/bookings/:bookingId", this.getBookingByUserID);
-        this.router.post("/add/", this.addNewUser);
+        this.router.get("/:userId/bookings/:time", this.getBookingsByUserID);
+        //this.router.get("/:userId/bookings/:bookingId", this.getBookingByUserID);
+        this.router.post("/", this.addNewUser);
         this.router.delete('/:userId', this.deleteUserById);
         this.router.get("/email/:userEmail", this.userWithEmailExist);
     }
@@ -19,7 +19,7 @@ module.exports.UserRouter = class extends ApiRouterCore{
     }
 
     getBookingsByUserID(req, res) {
-        res.json(getBookingsByUserID(req.params.userId));
+        res.json(getBookingsByUserID(req.params.userId, req.params.time));
     }
 
     getBookingByUserID(req, res) {

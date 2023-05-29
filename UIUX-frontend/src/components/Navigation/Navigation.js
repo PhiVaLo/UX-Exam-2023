@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./Navigation.css";
+
+import { WindowWidthContext } from '../WindowWidthContext';
+import '../config'
 
 // import logo from "../../images/logo_transparent.png";
 import logo from "../../images/logo2.png";
@@ -15,21 +18,14 @@ const Navigation3 = () => {
         navRef.current.classList.toggle("responsive-nav");
     };
 
-    // window width
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const small = 768;
+    const redirectToProfile = (event) => {
+        window.location.href = "/profile";
+    }
 
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
+    const windowWidth = useContext(WindowWidthContext);
+    const sm = global.config.obj.size.sm;
+    
 
-        window.addEventListener("resize", handleWindowResize);
-
-        return () => {
-            window.removeEventListener("resize", handleWindowResize);
-        };
-    });
 
     return (
         <header>
@@ -39,8 +35,8 @@ const Navigation3 = () => {
                 <a href="/#">Overview</a>
                 <a href="/#">...</a>
                 <a href="/#">...</a>
-                <button className="avatar-btn">
-                    {windowWidth > small ? <FaUser /> : "Profile"}
+                <button className="avatar-btn" onClick={redirectToProfile}>
+                    {windowWidth > sm ? <FaUser /> : "Profile"}
                     {/* <FaUser /> */}
                 </button>
                 <button className="nav-btn nav-close-btn" onClick={showNavBar}>

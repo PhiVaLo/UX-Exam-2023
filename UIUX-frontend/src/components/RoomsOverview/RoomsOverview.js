@@ -1,0 +1,164 @@
+import React, { useState, useEffect } from 'react'
+import './RoomsOverview.css'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import axios from 'axios';
+import {User} from "../Login/Login";
+//const apiUrl = "http://localhost:3001";
+const apiUrl = "http://localhost:3002";
+
+export let Room;
+export const RoomBookingMap = new Map();
+
+const RoomsOverview = () => {
+    const currentDate = new Date();
+    let o = new Date();
+    const [day, setDay] = useState(0);
+    const [onetime, setOnetime] = useState(0);
+
+    const rooms = [];
+    rooms.push(); //TODO Push all relevant values from sqlite database
+
+    const rightArrow = (event) => {
+        event.preventDefault();
+        setDay(increaseDay => increaseDay + 1);
+    }
+
+    const leftArrow = (event) => {
+        event.preventDefault();
+        setDay(decreaseDay => decreaseDay - 1);
+    }
+
+    const getDate = () => {
+        const date = currentDate;
+        date.setDate(currentDate.getDate() + day);
+        return `${date.getDate()}/${date.getMonth()}`;
+    }
+
+    const getDateInMilliseconds = () => {
+        const date = currentDate;
+        date.setDate(currentDate.getDate() + day);
+        date.setHours(0, 0, 0);
+        return date.getTime();
+    }
+
+    const Grid = props => {
+        const [roomsMap, setRoomsMap] = useState(new Map());
+        const [bookingMap, setBookingMap] = useState(new Map());
+        const [grids, setGrids] = useState([]);
+
+        //let id = 'ID' //TODO Import id from logged in user
+        let id = 1;
+
+        useEffect(() => {
+            (async function(){
+                const locationsTemp = [];
+                const roomsMapTemp = new Map();
+                let response = await axios.get(apiUrl + `/universities/locations/` + id);
+
+                if (response.data){
+                    for (const location of response.data) {
+                        locationsTemp.push(location);
+                    }
+                }else{
+                    console.error("Cannot find universities from api")
+                }
+
+                for (const location of locationsTemp) {
+                    roomsMapTemp.set(location, []);
+                    response = await axios.get(apiUrl + `/universities/locations/${location.location_id}/rooms`);
+
+                    if (response.data){
+                        for (const room of response.data) {
+                            roomsMapTemp.get(location).push(room);
+                        }
+                    }else{
+                        console.error("Cannot find universities from api")
+                    }
+                }
+
+                const bookingMapTemp = new Map();
+                const curTime = getDateInMilliseconds();
+                // Offset can be changed default 24 hours
+                const offset = 86400000;
+                const toTime = curTime + offset;
+                const tempGrids = [];
+
+                for (const [key, value] of roomsMapTemp) {
+                    const colList = [];
+                    for (const room of value){
+                        const response = await axios.get(apiUrl + `/rooms/${room.room_id}/bookings/${curTime}&${toTime}`);
+                        let statusColor = "status-green";
+
+                        if (response.data === 'OK'){
+                            console.log("No bookings found for room");
+                            RoomBookingMap.set(room, []);
+                        }else{
+                            RoomBookingMap.set(room, response.data);
+                            if (response.data.length < 3){
+                                statusColor = 'status-green';
+                            }else if (response.data.length < 6){
+                                statusColor = 'status-yellow';
+                            }else{
+                                statusColor = 'status-red';
+                            }
+                        }
+
+                        colList.push(<Col onClick={() => redirect(room)} className={`colBox ${statusColor}`}>
+                            <strong>{room.name}</strong>
+                            {/*<p className='colBox-info'><strong>Status:</strong> {status}</p>*/}
+                        </Col>);
+                    }
+                    tempGrids.push(
+                        <h1 className='rowHeader'>{key.name}</h1>,
+                        <Row className='rowGrid' xs={4} md={5} lg={6}>
+                            {colList}
+                        </Row>
+                    );
+                }
+
+                setRoomsMap(roomsMapTemp);
+                setGrids(tempGrids);
+            })();
+        }, [onetime]);
+
+
+        return (
+            <Container className='containerGrid'>
+                {grids}
+            </Container>
+        )
+    }
+
+
+
+    return (
+        <div className='rooms-overview'>
+
+            <div className='date-container'>
+                <form className="my-date">{getDate()}</form>
+
+                <button className='date-backward'>
+                    <i className="fa-solid fa-angle-left" onClick={leftArrow}></i>
+                </button>
+
+                <button className='date-forward'>
+                    <i className="fa-solid fa-angle-right" onClick={rightArrow}></i>
+                </button>
+
+            </div>
+
+            <div className="location-container"> {/*LOCATIONS*/}
+                {<Grid/>}
+            </div>
+        </div>
+    )
+}
+function redirect(room) {//TODO needs to redirect to chosen room
+    Room = room;
+}
+
+
+
+export default RoomsOverview
