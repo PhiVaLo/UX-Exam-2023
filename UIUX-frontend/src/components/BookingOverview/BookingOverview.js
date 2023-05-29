@@ -41,7 +41,7 @@ const BookingOverview = (props) => {
             <div>
                 <p><b>Room name</b>: {Room ? Room.name : "No room selected"}</p>
                 <p><b>Time</b>: {hours >= 1 ? (<span>{hours} hours </span>) : null} {minutes > 0 ? (<span>{minutes} minutes </span>) : null}  </p>
-                <p><b>Parcicipants</b>: {props.participants.map((participant) => { return <span key={participant}>{participant}, </span> })}</p>
+                <p><b>Participants</b>: {props.participants.map((participant) => { return <span key={participant}>{participant}, </span> })}</p>
             </div>
 
 

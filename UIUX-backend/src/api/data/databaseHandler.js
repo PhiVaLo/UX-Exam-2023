@@ -48,8 +48,9 @@ function addNewUniversity(university){
         .run(university.university_name);
 }
 
-function getBookingsByUserID(userId, time) {
-   return db.prepare('SELECT ALL FROM bookings WHERE owner_id = ?').all(userId);
+function getBookingsByUserID(userId, timeFrom, timeTo) {
+   return db.prepare('SELECT ALL * FROM bookings WHERE owner_id = ? AND (date_time > ? AND date_time < ?)')
+       .all(userId, timeFrom, timeTo);
 }
 
 function getBookingByUserID(userId, bookingId) {
@@ -57,8 +58,15 @@ function getBookingByUserID(userId, bookingId) {
         .get(userId, bookingId);
 }
 
-function deleteUserByID(userId) {
+module.exports.deleteUserByID = function (userId) {
     return db.prepare('DELETE * FROM bookings WHERE user_id = ?').get(userId);
+}
+
+ module.exports.deleteBooking = function (bookingId) {
+    db.prepare('DELETE FROM bookings WHERE booking_id = ?')
+        .run(bookingId);
+    db.prepare('DELETE FROM booking_details WHERE booking_id = ?')
+        .run(bookingId);
 }
 
 function userEmailExist(email){
@@ -152,4 +160,3 @@ module.exports.getBookingsByUniversity = getAmountOfBookingsByUniversity;
 module.exports.getBookingByUniversity = getBookingByUniversity;
 module.exports.getBookingsByUserID = getBookingsByUserID;
 module.exports.getBookingByUserID = getBookingByUserID;
-module.exports.deleteUserByID = deleteUserByID;

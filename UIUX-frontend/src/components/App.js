@@ -22,11 +22,6 @@ const App = () => {
 
     // TODO Remove for final build
 
-    useEffect(() => {
-        setTimeout(() => {
-            setParticipantsState(["phiy", "tily", "kkni", "ptso", "omse"]);
-        }, 2000);
-    }, [participantsState]);
     //? test database-----------------
 
     return (

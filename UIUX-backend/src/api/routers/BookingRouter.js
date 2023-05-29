@@ -1,11 +1,12 @@
 const {ApiRouterCore} = require("../ApiRouterCore");
-const {addBooking, addNewBookingDetail, getUsersInBooking, getBooking} = require("../data/databaseHandler");
+const {addBooking, addNewBookingDetail, getUsersInBooking, getBooking, deleteBooking} = require("../data/databaseHandler");
 
 module.exports.BookingRouter = class BookingRouter extends ApiRouterCore{
     setupRoutes(){
         this.router.post("/", this.addNewBooking);
         this.router.get("/:bookingId", this.getBookingById);
         this.router.post('/details', this.addNewDetail);
+        this.router.delete('/:bookingId', this.deleteBooking);
         this.router.get('/details/:bookingId', this.getUsersInBooking);
     }
 
@@ -27,6 +28,11 @@ module.exports.BookingRouter = class BookingRouter extends ApiRouterCore{
 
     addNewDetail(req, res){
         addNewBookingDetail(req.body);
+        res.sendStatus(200);
+    }
+
+    deleteBooking(req, res){
+        deleteBooking(req.params.bookingId);
         res.sendStatus(200);
     }
 

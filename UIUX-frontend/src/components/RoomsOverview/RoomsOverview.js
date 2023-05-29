@@ -16,7 +16,7 @@ const RoomsOverview = () => {
     let o = new Date();
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
-
+    currentDate.setMonth(currentDate.getMonth() + 1);
     const rooms = [];
     rooms.push(); //TODO Push all relevant values from sqlite database
 
@@ -78,21 +78,20 @@ const RoomsOverview = () => {
                     }
                 }
 
-                const bookingMapTemp = new Map();
-                const curTime = getDateInMilliseconds();
-                // Offset can be changed default 24 hours
-                const offset = 86400000;
-                const toTime = curTime + offset;
+                const curTime = new Date();
+                curTime.setDate(curTime.getDate() + day);
+
+                const toTime = new Date();
+                toTime.setDate(toTime.getDate() + 1 + day);
                 const tempGrids = [];
 
                 for (const [key, value] of roomsMapTemp) {
                     const colList = [];
                     for (const room of value){
-                        const response = await axios.get(apiUrl + `/rooms/${room.room_id}/bookings/${curTime}&${toTime}`);
+                        const response = await axios.get(apiUrl + `/rooms/${room.room_id}/bookings/${curTime.getTime()}&${toTime.getTime()}`);
                         let statusColor = "status-green";
 
                         if (response.data === 'OK'){
-                            console.log("No bookings found for room");
                             RoomBookingMap.set(room, []);
                         }else{
                             RoomBookingMap.set(room, response.data);
@@ -107,7 +106,6 @@ const RoomsOverview = () => {
 
                         colList.push(<Col onClick={() => redirect(room)} className={`colBox ${statusColor}`}>
                             <strong>{room.name}</strong>
-                            {/*<p className='colBox-info'><strong>Status:</strong> {status}</p>*/}
                         </Col>);
                     }
                     tempGrids.push(

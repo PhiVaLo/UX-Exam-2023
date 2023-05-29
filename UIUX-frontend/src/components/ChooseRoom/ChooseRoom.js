@@ -66,16 +66,10 @@ const ChooseRoom = () => {
             // If there is an overlap
         }
 
-
-
         const dateStart = new Date();
         dateStart.setHours( parseInt(selectedOptionTimeStart));
-
         dateStart.setDate(dateStart.getDate() + parseInt(selectedOptionDate));
-
         dateStart.setHours(dateStart.getHours());
-        console.log(parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart));
-
 
         const data = {
             owner_id:1,
@@ -86,9 +80,7 @@ const ChooseRoom = () => {
             duration: (parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart))
         };
 
-        axios.post(apiUrl + "/bookings", data).then(response => {
-
-        })
+        axios.post(apiUrl + "/bookings", data).then(res => setOnetime(1));
     }
 
     const BookingsByDate = (props) => {
@@ -96,7 +88,6 @@ const ChooseRoom = () => {
         const date = props.date;
         const dayDate = new Date();
         dayDate.setTime(date);
-        //const day = (((date / 86400000) % 365));
 
         useEffect(() => {
             (async function(){
@@ -117,14 +108,12 @@ const ChooseRoom = () => {
                     let response = await axios.get(apiUrl + `/users/${booking.owner_id}`);
                     const username = response.data.email;
                     const role = response.data.role;
-
-
                     tempBookings.push(booked(startHour, duration, username, role));
                 }
 
                 setBookings(tempBookings);
             })();
-        }, [onetime]);
+        }, [onetime, day]);
 
         return <div className="date">
             <div>{`${dayDate.getDate()}/${dayDate.getMonth() + 1}`}</div>
@@ -262,6 +251,8 @@ const ChooseRoom = () => {
                     <option value="14">14:00</option>
                     <option value="15">15:00</option>
                     <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
                 </select>
                 <select value={selectedOptionTimeEnd} onChange={handleOptionTimeEndChange} className="select-menu box2">
                     <option value="">End-Time</option>
@@ -275,6 +266,8 @@ const ChooseRoom = () => {
                     <option value="15">15:00</option>
                     <option value="16">16:00</option>
                     <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
                 </select>
                 <button type="button" onClick={bookTime} className="btn book-time-btn">
                     Book Time

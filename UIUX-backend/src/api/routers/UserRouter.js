@@ -19,7 +19,7 @@ module.exports.UserRouter = class extends ApiRouterCore{
     }
 
     getBookingsByUserID(req, res) {
-        res.json(getBookingsByUserID(req.params.userId, req.params.time));
+        res.json(getBookingsByUserID(req.params.userId, req.params.timeFrom, req.params.timeTo));
     }
 
     getBookingByUserID(req, res) {

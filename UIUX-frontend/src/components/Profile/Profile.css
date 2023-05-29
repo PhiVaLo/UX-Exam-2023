@@ -30,7 +30,7 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     
-    text-align: center !important;
+    text-align: left !important;
 }
 
 .booking-btn:hover {
@@ -59,7 +59,7 @@
     padding-top: 20px;
 
     overflow-y: scroll;
-    scrollbar-width: normal;
+    scrollbar-width: auto;
     scrollbar-color: black white;
 }
 
