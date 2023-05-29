@@ -3,9 +3,9 @@ import './Login.css';
 import axios from 'axios';
 const apiUrl = "http://localhost:3002";
 
-const user = {};
-
 function LoginForm() {
+    let User;
+    let GuestBookingId;
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
@@ -116,8 +116,10 @@ function LoginForm() {
             }
             else if (response.headers.get('Login-status') == 1){
                 // TODO redirect to correct url
-                console.log("Successful login!");
-                window.location.href = "/hello";
+                axios.get(apiUrl + `/user/email/${userEmail}`).then(response => {
+                   User = response.data;
+                    window.location.href = "/hello";
+                });
             }else{
                 setErrorMessage('Invalid email/password combination');
             }
@@ -161,9 +163,10 @@ function LoginForm() {
     const handleGuestLogin = (event) => {
         event.preventDefault();
         axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
-            console.log(response.data.body);
             if (response.data !== 'OK'){
                 //TODO redirect to correct url
+                User = false;
+                GuestBookingId = response.data;
                 window.location.href = "/hello";
             }else{
                 setErrorMessage('Not a valid guest ID');
