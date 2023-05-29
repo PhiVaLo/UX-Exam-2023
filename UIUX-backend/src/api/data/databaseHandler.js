@@ -71,7 +71,7 @@ module.exports.deleteUserByID = function (userId) {
 
 function userEmailExist(email){
     return db.prepare('SELECT * FROM users WHERE email = ?')
-        .run(email);
+        .get(email);
 }
 
 function userExist(email, passcode){

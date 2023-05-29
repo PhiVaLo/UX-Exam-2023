@@ -6,6 +6,7 @@ import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Navigation from "../Navigation/Navigation";
+import {Room} from "../RoomsOverview/RoomsOverview";
 
 //import { FaBars, FaTimes, FaUser } from 'react-icons/fa'
 
@@ -31,8 +32,6 @@ const BookingOverview = (props) => {
     const closeCancelModal = () => {
       setShowCancelModal(false);
     };
-
-    const bookingId = 3;
 
     const ParticipantNames = (props) => {
         const [bookingParticipants, setParticipants] = useState([]);

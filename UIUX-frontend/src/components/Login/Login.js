@@ -1,10 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import './Login.css';
 import axios from 'axios';
+import "../config";
 const apiUrl = "http://localhost:3002";
-
-export let User = {};
-export let GuestBookingId;
 
 function LoginForm() {
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
@@ -13,7 +10,7 @@ function LoginForm() {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [university, setUniversity] = useState(0);
+    const [university, setUniversity] = useState(1);
     const [errorMessage, setErrorMessage] = useState('');
     const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
@@ -82,7 +79,7 @@ function LoginForm() {
                     onChange={handleUniversityChange}
                     value={university}
                 >
-                    {universitiesList && universitiesList.map((university, index) => (<option value={index} key={index} >{university.university_name}</option>))}
+                    {universitiesList && universitiesList.map((university, index) => (<option value={index + 1} key={index + 1} >{university.university_name}</option>))}
                 </select>
             )
 
@@ -117,9 +114,9 @@ function LoginForm() {
             }
             else if (response.headers.get('Login-status') == 1){
                 // TODO redirect to correct url
-                axios.get(apiUrl + `/user/email/${userEmail}`).then(response => {
-                   User = response.data;
-                    window.location.href = "/hello";
+                axios.get(apiUrl + `/users/email/${userEmail}`).then(response => {
+                    global.config.obj.User = response.data;
+                    window.location.href = "/roomsoverview";
                 });
             }else{
                 setErrorMessage('Invalid email/password combination');
@@ -166,8 +163,8 @@ function LoginForm() {
         axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
             if (response.data !== 'OK'){
                 //TODO redirect to correct url
-                User = false;
-                GuestBookingId = response.data;
+                global.config.obj.User = false;
+                global.config.obj.GuestBookingId = response.data;
                 window.location.href = "/hello";
             }else{
                 setErrorMessage('Not a valid guest ID');

@@ -10,7 +10,7 @@ module.exports.UserRouter = class extends ApiRouterCore{
         //this.router.get("/:userId/bookings/:bookingId", this.getBookingByUserID);
         this.router.post("/", this.addNewUser);
         this.router.delete('/:userId', this.deleteUserById);
-        this.router.get("/email/:userEmail", this.userWithEmailExist);
+        this.router.get("/email/:userEmail", this.getUserFromEmail);
     }
 
     getUserById(req, res){
@@ -38,9 +38,8 @@ module.exports.UserRouter = class extends ApiRouterCore{
         res.sendStatus(200);
     }
 
-    userWithEmailExist (req, res) {
-        const emailExist = userEmailExist(req.params.userEmail);
-        res.sendStatus(200);
+    getUserFromEmail (req, res) {
+        res.json(userEmailExist(req.params.userEmail));
     }
 
 }

@@ -3,12 +3,12 @@ import "./Profile.css";
 
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
-//import {User} from "../Login/Login";
+import Navigation from "../Navigation/Navigation";
 
 const apiUrl = "http://localhost:3002/";
 
 const Profile = (props) => {
-
+    const User = global.config.obj.User;
     const getDate = (time) => {
         const date = new Date();
         date.setTime(time);
@@ -19,9 +19,6 @@ const Profile = (props) => {
         axios.delete(apiUrl + `bookings/${booking.id}`).then(res => setOneTime(1));
     }
 
-    const User = {
-        user_id: 1
-    };
     const [bookingsInfo, setBookingsInfo] = useState([]);
     const [oneTime, setOneTime] = useState(0);
 
@@ -65,8 +62,8 @@ const Profile = (props) => {
                 Logout
             </button>
             <div>
-                <p><b>Name</b>: {userName}</p>
-                <p><b>Role</b>: {userRole}</p>
+                <p><b>Name</b>: {User.email}</p>
+                <p><b>Role</b>: {"Student" /*TODO maybe put logic in here*/}</p>
             </div>
             <div style={{ margin: "200px 0" }}></div>{" "}
             {/* delete this line later */}
@@ -88,6 +85,7 @@ const Profile = (props) => {
                     ))}
                 </div>
             </div>
+        </div>
         </div>
     );
 };

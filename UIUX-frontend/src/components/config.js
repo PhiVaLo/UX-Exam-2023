@@ -6,6 +6,9 @@ module.exports = global.config = {
             lg: 1200,
             xl: 1400,
         },
+        Room: {},
+        User: {},
+        GuestBookingId: {}
     },
 };
 

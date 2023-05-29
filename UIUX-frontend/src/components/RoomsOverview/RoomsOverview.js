@@ -4,13 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import "../config";
 import Navigation from "../Navigation/Navigation";
-import {User} from "../Login/Login";
-//const apiUrl = "http://localhost:3001";
 const apiUrl = "http://localhost:3002";
-
-export let Room;
-export const RoomBookingMap = new Map();
 
 const RoomsOverview = () => {
     const currentDate = new Date();
@@ -93,9 +89,7 @@ const RoomsOverview = () => {
                         let statusColor = "status-green";
 
                         if (response.data === 'OK'){
-                            RoomBookingMap.set(room, []);
                         }else{
-                            RoomBookingMap.set(room, response.data);
                             if (response.data.length < 3){
                                 statusColor = 'status-green';
                             }else if (response.data.length < 6){
@@ -158,8 +152,9 @@ const RoomsOverview = () => {
         </div>
     )
 }
-function redirect(room) {//TODO needs to redirect to chosen room
-    Room = room;
+function redirect(room) {
+    global.config.obj.Room = room;
+    window.location.href = "/room"
 }
 
 

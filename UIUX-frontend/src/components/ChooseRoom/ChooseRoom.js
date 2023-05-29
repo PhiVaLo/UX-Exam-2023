@@ -2,23 +2,26 @@ import React, { useState, useEffect, useContext } from "react";
 import "./ChooseRoom.css";
 
 import { WindowWidthContext } from "../WindowWidthContext";
-import {Room} from "../RoomsOverview/RoomsOverview";
 import "../config";
 import Navigation from "../Navigation/Navigation";
 
 import {Day} from "../RoomsOverview/RoomsOverview";
 import axios from "axios";
-import {User} from "../Login/Login";
 
 const apiUrl = "http://localhost:3002";
 
 const ChooseRoom = () => {
+    const User = global.config.obj.User;
+    const Room = global.config.obj.Room;
+
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
     const rightArrow = (event) => {
         event.preventDefault();
         setDay(increaseDay => increaseDay + 1);
     }
+
+    console.log(Room);
 
     const leftArrow = (event) => {
         event.preventDefault();
@@ -75,9 +78,9 @@ const ChooseRoom = () => {
         dateStart.setHours(dateStart.getHours());
 
         const data = {
-            owner_id:1,
-            room_id:1,
-            university_id: 1,
+            owner_id:User.user_id,
+            room_id:Room.room_id,
+            university_id: User.university_id,
             date_time: dateStart.getTime(),
             description: 'None',
             duration: (parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart))
@@ -158,7 +161,7 @@ const ChooseRoom = () => {
             <Navigation/>
 
         <div className="m-4">
-            <h2>Room Name</h2>
+            <h2>{Room.name}</h2>
             <hr />
             {/* -------------------------------------------------------------- */}
             <div className="date-box mb-4">
@@ -284,6 +287,7 @@ const ChooseRoom = () => {
             {/* <button type="button" className="btn book-time-btn">
                 Book Time
             </button> */}
+        </div>
         </div>
     );
 };

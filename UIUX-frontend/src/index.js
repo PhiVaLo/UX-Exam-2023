@@ -17,7 +17,7 @@ import Login from "./components/Login/Login";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App/>, //Need to be login
+        element: <Login/>, //Need to be login
     },
     {
         path: "/roomsoverview",
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
     {
         path: "/bookingoverview",
         element: <BookingOverview/>,
+    },
+    {
+        path: "/room",
+        element: <ChooseRoom/>,
     },
 
 ]);
