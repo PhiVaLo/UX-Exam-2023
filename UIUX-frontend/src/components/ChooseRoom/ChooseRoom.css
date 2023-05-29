@@ -1,0 +1,156 @@
+:root {
+    --height: 40px;
+    --date-height: 25px;
+    --start-time: 8;
+}
+
+.date-box {
+    border: 1px solid black;
+    text-align: center;
+    box-shadow: 2px 2px 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* -------------------------------------- */
+
+.date-container {
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.date {
+    flex: 9;
+    text-align: center;
+    border: 1px solid black;
+    /* background-color: #211e1eec; */
+    /* color: white; */
+    height: var(--height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-column {
+    /* flex: 1; */
+}
+
+.container-right {
+    /* border: 1px solid blue; */
+    flex: 6;
+    position: relative;
+    margin-right: 5px;
+}
+
+.time {
+    height: var(--height);
+    border: 1px solid black;
+    text-align: center;
+    width: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+}
+
+.empty {
+    border: none;
+}
+
+.booked-box {
+    padding-top: 10px;
+    text-align: start;
+    padding-left: 10px;
+    margin-left: -1px;
+    border: 1px solid black;
+    /* border: none; */
+    border-radius: 5px;
+    background-color: #da294c76;
+    background-color: #e75a76d2;
+    color: black;
+
+    position: absolute;
+    width: 100%;
+
+    font-size: 12px;
+
+    /* top: calc(var(--date-height) + var(--height) * (14 - var(--start-time))); */
+    /* height: calc(var(--height) * 2.5); */
+}
+
+/* -------------------------------------- */
+
+.center {
+    text-align: center;
+}
+
+.book-time {
+    /* border: 1px solid red; */
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    width: 300px;
+    width: 550px;
+    margin: auto;
+}
+
+.book-time-box {
+    border: 1px solid blue;
+    width: 100px;
+    text-align: center;
+}
+
+.select-menu {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #e0cfcf31;
+    color: #333;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    padding-left: 20px;
+    cursor: pointer;;
+}
+
+.box1 {
+    /* flex: 1; */
+    width: 100px;
+}
+
+.box2 {
+    /* flex: 2; */
+    width: 150px;
+}
+
+/* -------------------------------------- */
+
+/* .book-time-btn {
+    background-color: var(--color-primary);
+    color: white;
+    width: 100%;
+    height: 50px;
+
+    margin-top: 20px;
+} */
+
+.book-time-btn {
+    background-color: var(--color-primary);
+    color: white;
+    width: 125px;
+    /* height: 50px; */
+    /* margin-top: 20px; */
+}
+
+
+.book-time-btn:hover {
+    background: var(--color-primary-dark);
+    color: #fff;
+}

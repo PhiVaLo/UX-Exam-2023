@@ -1,25 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./Navigation.css";
-import logo from "../../images/logo_transparent.png";
-import userAvatar from "../../images/icons8-user-64.png";
 
-const Navigation = () => {
+import { WindowWidthContext } from '../WindowWidthContext';
+import '../config'
+
+// import logo from "../../images/logo_transparent.png";
+import logo from "../../images/logo2.png";
+
+import { useRef } from "react";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+
+const Navigation3 = () => {
+    const navRef = useRef();
+
+    // toggle dropdown
+    const showNavBar = () => {
+        navRef.current.classList.toggle("responsive-nav");
+    };
+
+    const windowWidth = useContext(WindowWidthContext);
+    const sm = global.config.obj.size.sm;
+    
+
+
     return (
-        <div className="navigation">
-            <div className="nav-background"></div>
-            <div>
-                <img className="logo" src={logo} alt="logo" />
-                <span>Title</span>
-            </div>
-            <div className="menu-right">
-                <span className="md">Booking</span>
-                <span>Overview</span>
-                <span>Menu3</span>
-                <span>...</span>
-                <span><img className="avatar" src={userAvatar} alt="User Avatar" /></span>
-            </div>
-        </div>
+        <header>
+            <img className="logo" src={logo} alt="logo" />
+            <nav ref={navRef}>
+                <a href="/#">Booking</a>
+                <a href="/#">Overview</a>
+                <a href="/#">...</a>
+                <a href="/#">...</a>
+                <button className="avatar-btn">
+                    {windowWidth > sm ? <FaUser /> : "Profile"}
+                    {/* <FaUser /> */}
+                </button>
+                <button className="nav-btn nav-close-btn" onClick={showNavBar}>
+                    <FaTimes />
+                </button>
+            </nav>
+
+            <button className="nav-btn" onClick={showNavBar}>
+                <FaBars />
+            </button>
+        </header>
     );
 };
 
-export default Navigation;
+export default Navigation3;

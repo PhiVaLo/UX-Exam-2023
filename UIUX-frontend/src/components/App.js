@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
-// import './App.css'
-import LoginForm from "./Login/Login"
-import Navigation from './Navigation/Navigation'
-import Profile from './Profile/Profile'
-import BookingOverview from './BookingOverview/BookingOverview'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import LoginForm from "./Login/Login";
+import Navigation from "./Navigation/Navigation";
+import Profile from "./Profile/Profile";
+import BookingOverview from "./BookingOverview/BookingOverview";
+import ChooseRoom from "./ChooseRoom/ChooseRoom";
 
-import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking"
-import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
+import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking";
+import ModalAddParticipant from "./ModalAddParticipant/ModalAddParticipant";
+
+import { WindowWidthProvider } from "./WindowWidthContext";
 import RoomsOverview from "./RoomsOverview/RoomsOverview";
 
 const App = () => {
@@ -34,25 +37,40 @@ const App = () => {
 
 
     return (
-        <div className='container' style={{border: "1px solid blue"}}>
-            <Navigation />
+        <WindowWidthProvider>
+            <div>
+                <Navigation />
 
-            {/* <ModalAddParticipant />             */}
-            {/* <ModalCancelBooking /> */}
-            <div style={{margin: "30px 0"}}></div><hr />
+                <div className="container debug-box">
+                    <ChooseRoom />
+                </div>
 
-            <BookingOverview participants={participantsState} room={room} duration={duration}/>
-            <div style={{margin: "30px 0"}}></div><hr />
+                <div className="container debug-box">
+                    <Profile />
+                </div>
 
-            <Profile />
-            <div style={{margin: "30px 0"}}></div><hr />
+                <div className="container debug-box">
+                    <BookingOverview
+                        participants={participantsState}
+                        room={room}
+                        duration={duration}
+                    />
+                </div>
 
-            <LoginForm/>
-            <div style={{margin: "30px 0"}}></div><hr />
+                <div className="container debug-box">
+                    <LoginForm />
+                </div>
 
-            <RoomsOverview/>
-        </div>
-    )
-}
+                <div className="container debug-box">
+                    <ModalAddParticipant />
+                </div>
+
+                <div className="container debug-box">
+                    <ModalCancelBooking />
+                </div>
+            </div>
+        </WindowWidthProvider>
+    );
+};
 
 export default App
