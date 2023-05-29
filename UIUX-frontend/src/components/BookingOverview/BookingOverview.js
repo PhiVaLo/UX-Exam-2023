@@ -7,7 +7,6 @@ import {Room, RoomBookingMap} from "../RoomsOverview/RoomsOverview";
 
 
 const BookingOverview = (props) => {
-    console.log(Room);
     const hours = Math.floor(props.duration/60)
     const minutes = props.duration % 60
 

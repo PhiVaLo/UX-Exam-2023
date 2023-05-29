@@ -5,7 +5,7 @@ module.exports.RoomRouter = class RoomRouter extends ApiRouterCore{
     setupRoutes(){
         this.router.get('/:roomId', this.getRoom);
         this.router.post('/', this.addRoom);
-        this.router.get('/:roomId/bookings', this.getAllRoomBookings);
+        this.router.get('/:roomId/bookings/:timeFrom&:timeTo', this.getAllRoomBookings);
     }
 
     getRoom(req, res){
@@ -19,7 +19,7 @@ module.exports.RoomRouter = class RoomRouter extends ApiRouterCore{
     }
 
     getAllRoomBookings(req, res){
-        res.json(getAllBookingsByRoom(req.params.roomId));
+        res.json(getAllBookingsByRoom(req.params.roomId, req.params.timeFrom, req.params.timeTo));
     }
 
     getRoomBooking(req, res){

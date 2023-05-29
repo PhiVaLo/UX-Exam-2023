@@ -109,7 +109,7 @@ module.exports.getBookingByRoom = function getBookingByRoom(roomId, bookingId){
 
 function addBooking(booking){
     db.prepare('INSERT INTO bookings (room_id, owner_id, description, date_time, university_id, duration) VALUES (?, ?, ?, ?, ?, ?)')
-        .run(booking.room_id, booking.owner_id, booking.description, booking.time, booking.university_id, booking.duration);
+        .run(booking.room_id, booking.owner_id, booking.description, booking.date_time, booking.university_id, booking.duration);
     return db.prepare('SELECT last_insert_rowid()')
         .get();
 }
