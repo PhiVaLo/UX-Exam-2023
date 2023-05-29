@@ -3,7 +3,7 @@ import './BookingOverview.css'
 import ModalAddParticipant from '../ModalAddParticipant/ModalAddParticipant'
 import ModalCancelBooking from '../ModalCancelBooking/ModalCancelBooking'
 
-import { FaBars, FaTimes, FaUser } from 'react-icons/fa'
+//import { FaBars, FaTimes, FaUser } from 'react-icons/fa'
 
 
 const BookingOverview = (props) => {
