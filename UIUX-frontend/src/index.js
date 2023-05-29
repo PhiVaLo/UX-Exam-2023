@@ -26,11 +26,6 @@ const router = createBrowserRouter([
         element: <RoomsOverview/>,
     },
     {
-        path: "/Bookingoverview",
-        element:<BookingOverview participants={} room={} duration={}/>
-        ,
-    },
-    {
         path: "/Profile",
         element: <Profile/>,
     },

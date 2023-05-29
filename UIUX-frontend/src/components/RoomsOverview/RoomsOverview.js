@@ -129,7 +129,7 @@ const RoomsOverview = () => {
     return (
         <div className='rooms-overview'>
 
-            <div className='date-container'>
+            <div className='dates-container'>
                 <form className="my-date">{getDate()}</form>
 
                 <button className='date-backward'>
