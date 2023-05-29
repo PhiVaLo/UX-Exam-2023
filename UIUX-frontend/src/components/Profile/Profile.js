@@ -5,14 +5,58 @@ import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
 const apiUrl = "http://localhost:3002";
-
 const Profile = () => {
+    //const userId = {}; //TODO get current user_id
+    const userId = 1;
+
+    const [userName, setUserName] = useState('');
+    const [userRole, setUserRole] = useState('');
+
+    useEffect(() => {
+        getUserName().then(name => {
+            setUserName(name);
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
+
+    useEffect(() => {
+        getUserRole().then(role => {
+            setUserRole(role);
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
+
+    const getUserName = () => {
+        return axios.get(apiUrl + `/users/${userId}`)
+            .then(response => {
+                if (response.data) {
+                    return response.data.name;
+                } else {
+                    console.error('User not found');
+                    return '';
+                }
+            });
+    };
+
+    const getUserRole = () => {
+        return axios.get(apiUrl + `/users/${userId}`)
+            .then(response => {
+                if (response.data) {
+                    return response.data.role;
+                } else {
+                    console.error('User not found');
+                    return '';
+                }
+            });
+    };
+    
     const RoomList = (props) => {
         const lists = [];
 
         const [list, setList] = useState([]);
 
-        const userId = {}; //TODO get current user_id
         const bookingsTemp = [];
 
         useEffect(() => {
@@ -65,8 +109,8 @@ const Profile = () => {
                 Logout
             </button>
             <div>
-                <p><b>Name</b>: John Doe</p>
-                <p><b>Role</b>: Student</p>
+                <p><b>Name</b>: {userName}</p>
+                <p><b>Role</b>: {userRole}</p>
             </div>
             <div style={{ margin: "200px 0" }}></div>{" "}
             {/* delete this line later */}
