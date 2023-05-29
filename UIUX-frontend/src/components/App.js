@@ -10,6 +10,7 @@ import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking";
 import ModalAddParticipant from "./ModalAddParticipant/ModalAddParticipant";
 
 import { WindowWidthProvider } from "./WindowWidthContext";
+import RoomsOverview from "./RoomsOverview/RoomsOverview";
 
 const App = () => {
     //? test database-----------------
@@ -58,6 +59,10 @@ const App = () => {
 
                 <div className="container debug-box">
                     <ModalCancelBooking />
+                </div>
+
+                <div className="container debug-box">
+                    <RoomsOverview />
                 </div>
             </div>
         </WindowWidthProvider>

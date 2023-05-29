@@ -18,6 +18,10 @@ const Navigation3 = () => {
         navRef.current.classList.toggle("responsive-nav");
     };
 
+    const redirectToProfile = (event) => {
+        window.location.href = "/profile";
+    }
+
     const windowWidth = useContext(WindowWidthContext);
     const sm = global.config.obj.size.sm;
     
@@ -31,7 +35,7 @@ const Navigation3 = () => {
                 <a href="/#">Overview</a>
                 <a href="/#">...</a>
                 <a href="/#">...</a>
-                <button className="avatar-btn">
+                <button className="avatar-btn" onClick={redirectToProfile}>
                     {windowWidth > sm ? <FaUser /> : "Profile"}
                     {/* <FaUser /> */}
                 </button>

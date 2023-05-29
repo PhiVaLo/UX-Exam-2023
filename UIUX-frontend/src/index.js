@@ -11,6 +11,7 @@ import BookingOverview from "./components/BookingOverview/BookingOverview";
 import Profile from "./components/Profile/Profile";
 import RoomsOverview from "./components/RoomsOverview/RoomsOverview";
 import Navigation from "./components/Navigation/Navigation";
+import ChooseRoom from "./components/ChooseRoom/ChooseRoom";
 
 const router = createBrowserRouter([
     {
@@ -26,9 +27,14 @@ const router = createBrowserRouter([
         element: <RoomsOverview/>,
     },
     {
+        path: "/ChooseRoom",
+        element: <ChooseRoom/>,
+    },
+    {
         path: "/Profile",
         element: <Profile/>,
     },
+
 
 ]);
 

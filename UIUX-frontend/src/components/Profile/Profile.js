@@ -2,8 +2,42 @@ import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
 import { FaTimes } from "react-icons/fa";
+import axios from "axios";
+const apiUrl = "http://localhost:3002";
 
 const Profile = () => {
+
+    const RoomList = (props) => {
+        const lists = [];
+
+        const [list, setList] = useState([]);
+
+        const userId = {}; //TODO get current user_id
+
+        useEffect(() => {
+            (async function(){
+                const bookingsTemp = [];
+
+                const response = await axios.get(apiUrl + `/${userId}/bookings/`);
+                if (response.data){
+                    for (const userBookings of response.data) {
+                        bookingsTemp.push(userBookings);
+                    }
+                } else{
+                    console.error("Cannot find bookings from api")
+                }
+
+                // needs to be sorted by time
+
+                for (const userBookings of bookingsTemp) {
+
+                }
+
+            })();
+        });
+    }
+
+
     return (
         <div className="profile m-4">
             <div>
@@ -24,6 +58,10 @@ const Profile = () => {
                 <p>
                     <b>My Bookings</b>
                 </p>
+
+                {/* -------------------------------------------------------- */}
+                {/* The code above should generate the code below with data */}
+
                 <div className="booking-wrapper">
 
                     <div className="booking-container">
@@ -36,8 +74,7 @@ const Profile = () => {
                     </div>
 
 
-                    {/* -------------------------------------------------------- */}
-                    {/* The code above should generate the code below with data */}
+
 
                     <div className="booking-container">
                         <button type="button" className="btn booking-btn">

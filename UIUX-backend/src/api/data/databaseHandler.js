@@ -48,7 +48,7 @@ function addNewUniversity(university){
         .run(university.university_name);
 }
 
-function getBookingsByUserID(userId) {
+function getBookingsByUserID(userId, time) {
    return db.prepare('SELECT ALL FROM bookings WHERE owner_id = ?').all(userId);
 }
 

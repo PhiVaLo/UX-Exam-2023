@@ -14,15 +14,21 @@ const ChooseRoom = () => {
     // const duration = 4; // booked for 4 hours
 
     const [selectedOptionDate, setSelectedOptionDate] = useState("");
-    const [selectedOptionTime, setSelectedOptionTime] = useState("");
+    const [selectedOptionTimeStart, setSelectedOptionTimeStart] = useState("");
+    const [selectedOptionTimeEnd, setSelectedOptionTimeEnd] = useState("");
 
     const handleOptionDateChange = (event) => {
         setSelectedOptionDate(event.target.value);
     };
 
-    const handleOptionTimeChange = (event) => {
-        setSelectedOptionTime(event.target.value);
+    const handleOptionTimeStartChange = (event) => {
+        setSelectedOptionTimeStart(event.target.value);
     };
+
+    const handleOptionTimeEndChange = (event) => {
+        setSelectedOptionTimeEnd(event.target.value);
+    };
+
 
     const booked = (startHour, duration, username, role) => {
         const height = 40;
@@ -147,19 +153,31 @@ const ChooseRoom = () => {
                     <option value="option6">31/05</option>
                     <option value="option7">01/06</option>
                 </select>
-                <select value={selectedOptionTime} onChange={handleOptionTimeChange} className="select-menu box2">
-                    <option value="">Time</option>
-                    <option value="option1">08:00 - 09:00</option>
-                    <option value="option2">09:00 - 10:00</option>
-                    <option value="option3">10:00 - 11:00</option>
-                    <option value="option4">11:00 - 12:00</option>
-                    <option value="option5">12:00 - 13:00</option>
-                    <option value="option6">13:00 - 14:00</option>
-                    <option value="option7">14:00 - 15:00</option>
-                    <option value="option8">15:00 - 16:00</option>
-                    <option value="option9">16:00 - 17:00</option>
+                <select value={selectedOptionTimeStart} onChange={handleOptionTimeStartChange} className="select-menu box2">
+                    <option value="">Start-Time</option>
+                    <option value="option1">08:00</option>
+                    <option value="option2">09:00</option>
+                    <option value="option3">10:00</option>
+                    <option value="option4">11:00</option>
+                    <option value="option5">12:00</option>
+                    <option value="option6">13:00</option>
+                    <option value="option7">14:00</option>
+                    <option value="option8">15:00</option>
+                    <option value="option9">16:00</option>
                 </select>
-                <button type="button" className="btn book-time-btn box3">
+                <select value={selectedOptionTimeEnd} onChange={handleOptionTimeEndChange} className="select-menu box2">
+                    <option value="">End-Time</option>
+                    <option value="option1">09:00</option>
+                    <option value="option2">10:00</option>
+                    <option value="option3">11:00</option>
+                    <option value="option4">12:00</option>
+                    <option value="option5">13:00</option>
+                    <option value="option6">14:00</option>
+                    <option value="option7">15:00</option>
+                    <option value="option8">16:00</option>
+                    <option value="option9">17:00</option>
+                </select>
+                <button type="button" className="btn book-time-btn">
                     Book Time
                 </button>                
             </div>
