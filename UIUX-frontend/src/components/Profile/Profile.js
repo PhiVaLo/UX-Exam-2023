@@ -49,9 +49,10 @@ const Profile = () => {
                     console.error('User not found');
                     return '';
                 }
-            });
+            })
+
     };
-    
+
     const RoomList = (props) => {
         const lists = [];
 
