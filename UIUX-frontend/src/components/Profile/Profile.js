@@ -3,56 +3,27 @@ import "./Profile.css";
 
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
-const apiUrl = "http://localhost:3002";
+//import {User} from "../Login/Login";
+
+const apiUrl = "http://localhost:3002/";
 
 const Profile = () => {
-    const RoomList = (props) => {
-        const lists = [];
+    const User = {
+        user_id: 1
+    };
+    const [bookings, setBookings] = useState([]);
 
-        const [list, setList] = useState([]);
-
-        const userId = {}; //TODO get current user_id
-        const bookingsTemp = [];
-
-        useEffect(() => {
-            (async function () {
-                const response = await axios.get(apiUrl + `/${userId}/bookings/`);
-                if (response.data) {
-                    for (const userBookings of response.data) {
-                        bookingsTemp.push(userBookings);
-                    }
-                } else {
-                    console.error("Cannot find bookings from api")
-                }
-            })();
-        });
-
-        // needs to be sorted by time
-
-        const bookingList = [];
-
-        for (const bookings of bookingsTemp) {
-            bookingList.push(
-                <div className="booking-container">
-                    <button type="button" className="btn booking-btn">
-                        {/*bookings.name*/}
-                        test test
-
-                    </button>
-                    <button type="button" className="remove-booking">
-                        <FaTimes/>
-                    </button>
-                </div>
-            );
-        }
-
-        return (
-            <div className='booking-wrapper'>
-                {bookingList}
-            </div>
-        )
-    }
+    useEffect(() => {
+        (async function () {
+            const response = await axios.get(apiUrl + `/${User.user_id}/bookings/${new Date().getTime()}&${new Date().getTime() + 86400000 * 2}`);
+            console.log(response);
+            console.log(5);
+            const userBookings = response.data;
+            setBookings(userBookings);
+            console.log(bookings);
+            console.log(10);
+        })();
+    });
 
     return (
         <div className="profile m-4">
@@ -60,7 +31,6 @@ const Profile = () => {
                 <h2>Profile</h2>
                 <hr />
             </div>
-
             <button type="button" className="btn btn-danger logout-btn">
                 Logout
             </button>
@@ -75,13 +45,21 @@ const Profile = () => {
                 <p>
                     <b>My Bookings</b>
                 </p>
+                <div className="booking-wrapper">
+                    {bookings.map((booking, index) => (
+                        <div className="booking-container" key={index}>
+                            <button type="button" className="btn booking-btn">
+                                {booking.room_name}
+                            </button>
+                            <button type="button" className="remove-booking">
+                                <FaTimes />
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
-
-            {RoomList}
-
-            <div/>
         </div>
     );
-}
+};
 
 export default Profile;

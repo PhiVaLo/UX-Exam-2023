@@ -7,7 +7,7 @@ module.exports.UserRouter = class extends ApiRouterCore{
     setupRoutes(){
         this.router.get("/:userId", this.getUserById);
         this.router.get("/:userId/bookings/:time", this.getBookingsByUserID);
-        //this.router.get("/:userId/bookings/:bookingId", this.getBookingByUserID);
+        this.router.get("/:userId/bookings/:bookingId", this.getBookingByUserID);
         this.router.post("/", this.addNewUser);
         this.router.delete('/:userId', this.deleteUserById);
         this.router.get("/email/:userEmail", this.userWithEmailExist);
@@ -43,5 +43,6 @@ module.exports.UserRouter = class extends ApiRouterCore{
         res.sendStatus(200);
     }
 
+    getEmail
 }
 
