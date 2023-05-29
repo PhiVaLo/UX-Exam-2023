@@ -3,8 +3,9 @@ import './Login.css';
 import axios from 'axios';
 const apiUrl = "http://localhost:3002";
 
-
 function LoginForm() {
+    let User;
+    let GuestBookingId;
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
@@ -47,7 +48,6 @@ function LoginForm() {
     }
 
     const Universities = props => {
-//TODO Interact with data so show universities:
         const [universitiesList, setUniversitiesList] = useState([]);
         const unmountedRef = useRef(false);
         //useEffect(()=>()=>(unmountedRef.current = true), []);
@@ -96,14 +96,15 @@ function LoginForm() {
 
     const handleLogin = (event) => { //Login Button Pressed
         event.preventDefault();
-        /*if (!regex.test(userEmail)) {
+
+        if (!regex.test(userEmail)) {
             setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
             setErrorMessage('Password must be at least 8 characters in length');
             return;
-        }*/
+        }
 
         const data = {
             email:userEmail,
@@ -113,11 +114,13 @@ function LoginForm() {
             if (response.status === 404){
                 console.error("Error connecting to the api, make sur backend is running!");
             }
-            else if (response.headers.get('Login-status')){
-                // TODO implement successful login
-                console.log("Successful login!");
+            else if (response.headers.get('Login-status') == 1){
+                // TODO redirect to correct url
+                axios.get(apiUrl + `/user/email/${userEmail}`).then(response => {
+                   User = response.data;
+                    window.location.href = "/hello";
+                });
             }else{
-                // TODO For now just set an error message
                 setErrorMessage('Invalid email/password combination');
             }
         });
@@ -159,142 +162,149 @@ function LoginForm() {
 
     const handleGuestLogin = (event) => {
         event.preventDefault();
-        //TODO Implement datacheck against ID and University
+        axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
+            if (response.data !== 'OK'){
+                //TODO redirect to correct url
+                User = false;
+                GuestBookingId = response.data;
+                window.location.href = "/hello";
+            }else{
+                setErrorMessage('Not a valid guest ID');
+            }
+        });
     }
 
 
     return (
-        <div className='login-wrapper'>
-            <div className="login-container">
-                {isLoginFormActive ? (
-                    <form className="form" id="login" onSubmit={handleLogin}>
-                        <h1 className="form-title">Login</h1>
-                        <div className="form-message form-message-error">{errorMessage}</div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
-                                autoFocus
-                                placeholder="Email"
-                                value={userEmail}
-                                onChange={handleEmailChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${errorMessage.includes('Password') ? 'form-input-error' : ''}`}
-                                placeholder="Password"
-                                value={password}
-                                onChange={handlePasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">Log in</button>
-                        <p className="form-text">
-                            <a href="#" className="form-link">Forgot your password?</a>
-                        </p>
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => setIsLoginFormActive(false)}
-                            >
-                                Don't have an account? Create account
-                            </a>
-                        </p>
-                        <p className="form-text">
-                            <a href="#" className="form-link" onClick={() => {
-                                setIsLoginFormActive(false);
-                                setIsGuestFormActive(true);
+        <div className="container">
+            {isLoginFormActive ? (
+                <form className="form" id="login" onSubmit={handleLogin}>
+                    <h1 className="form-title">Login</h1>
+                    <div className="form-message form-message-error">{errorMessage}</div>
+                    <div className="form-input-group">
+                        <input
+                            type="text"
+                            className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
+                            autoFocus
+                            placeholder="Email"
+                            value={userEmail}
+                            onChange={handleEmailChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <div className="form-input-group">
+                        <input
+                            type="password"
+                            className={`form-input ${errorMessage.includes('Password') ? 'form-input-error' : ''}`}
+                            placeholder="Password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <button className="form-button" type="submit">Log in</button>
+                    {/*<p className="form-text">
+                        <a href="#" className="form-link">Forgot your password?</a>
+                    </p>*/}
+                    <p className="form-text">
+                        <a
+                            className="form-link"
+                            onClick={() => setIsLoginFormActive(false)}
+                        >
+                            Don't have an account? Create account
+                        </a>
+                    </p>
+                    <p className="form-text">
+                        <a href="#" className="form-link" onClick={() => {
+                            setIsLoginFormActive(false);
+                            setIsGuestFormActive(true);
+                        }}
+                        >
+                            Continue as guest
+                        </a>
+                    </p>
+                </form>
+            ) : isGuestFormActive ? (
+                <form className="form" id="Guest" onSubmit={handleGuestLogin}>
+                    <h1 className="form-title">Guest Login</h1>
+                    <div className="form-message form-message-error">{errorMessage}</div>
+                    <div className="form-input-group">
+                        <input
+                            type="text"
+                            className={`form-input ${errorMessage.includes('GuestID') ? 'form-input-error' : ''}`}
+                            autoFocus
+                            placeholder="ID"
+                            value={guestID}
+                            onChange={handleGuestIDChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <button className="form-button" type="submit">Log in</button>
+                    <p className="form-text">
+                        <a
+                            className="form-link"
+                            onClick={() => {
+                                setIsLoginFormActive(true);
+                                setIsGuestFormActive(false);
                             }}
-                            >
-                                Continue as guest
-                            </a>
-                        </p>
-                    </form>
-                ) : isGuestFormActive ? (
-                    <form className="form" id="Guest" onSubmit={handleGuestLogin}>
-                        <h1 className="form-title">Guest Login</h1>
-                        <div className="form-message form-message-error">{errorMessage}</div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${errorMessage.includes('GuestID') ? 'form-input-error' : ''}`}
-                                autoFocus
-                                placeholder="ID"
-                                value={guestID}
-                                onChange={handleGuestIDChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">Log in</button>
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => {
-                                    setIsLoginFormActive(true);
-                                    setIsGuestFormActive(false);
-                                }}
-                            >
-                                Already have an account? Sign in
-                            </a>
-                        </p>
-                    </form>
-                ) : (
-                    <form className="form" id="SignUp" onSubmit={handleSignup}>
-                        <h1 className="form-title">Create Account</h1>
-                        <div className="form-message form-message-error">{errorMessage}</div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
-                                autoFocus
-                                placeholder="Email"
-                                value={userEmail}
-                                onChange={handleEmailChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${errorMessage.includes('Password') ? 'form-input-error' : ''}`}
-                                placeholder="Password"
-                                value={password}
-                                onChange={handlePasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${password !== confirmPassword ? 'form-input-error' : ''}`}
-                                placeholder="Confirm Password"
-                                value={confirmPassword}
-                                onChange={handleConfirmPasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            {<Universities/>}
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">Sign up</button>
-                        <p className="form-text">
-                            <a href="#" className="form-link">Forgot your password?</a>
-                        </p>
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => setIsLoginFormActive(true)}
-                            >
-                                Already have an account? Sign in
-                            </a>
-                        </p>
-                    </form>
-                )}
-            </div>
+                        >
+                            Already have an account? Sign in
+                        </a>
+                    </p>
+                </form>
+            ) : (
+                <form className="form" id="SignUp" onSubmit={handleSignup}>
+                    <h1 className="form-title">Create Account</h1>
+                    <div className="form-message form-message-error">{errorMessage}</div>
+                    <div className="form-input-group">
+                        <input
+                            type="text"
+                            className={`form-input ${errorMessage.includes('Email') ? 'form-input-error' : ''}`}
+                            autoFocus
+                            placeholder="Email"
+                            value={userEmail}
+                            onChange={handleEmailChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <div className="form-input-group">
+                        <input
+                            type="password"
+                            className={`form-input ${errorMessage.includes('Password') ? 'form-input-error' : ''}`}
+                            placeholder="Password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <div className="form-input-group">
+                        <input
+                            type="password"
+                            className={`form-input ${password !== confirmPassword ? 'form-input-error' : ''}`}
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                        />
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <div className="form-input-group">
+                        {<Universities/>}
+                        <div className="form-input-error-message"></div>
+                    </div>
+                    <button className="form-button" type="submit">Sign up</button>
+                    <p className="form-text">
+                        <a href="#" className="form-link">Forgot your password?</a>
+                    </p>
+                    <p className="form-text">
+                        <a
+                            className="form-link"
+                            onClick={() => setIsLoginFormActive(true)}
+                        >
+                            Already have an account? Sign in
+                        </a>
+                    </p>
+                </form>
+            )}
         </div>
     );
 }

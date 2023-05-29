@@ -82,6 +82,11 @@ function getBookingByUniversity (universityId){
         .get(universityId);
 }
 
+module.exports.getBooking = function (bookingId) {
+    return db.prepare('SELECT * FROM bookings WHERE booking_id = ?')
+        .get(bookingId);
+}
+
 module.exports.getRoom = function getRoom(roomId){
     return db.prepare('SELECT * FROM rooms WHERE room_id = ?')
         .get(roomId);
