@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import Navigation from "../Navigation/Navigation";
 import {User} from "../Login/Login";
 //const apiUrl = "http://localhost:3001";
 const apiUrl = "http://localhost:3002";
@@ -132,6 +133,9 @@ const RoomsOverview = () => {
 
 
     return (
+        <div>
+            <Navigation/>
+
         <div className='rooms-overview'>
 
             <div className='date-container'>
@@ -150,6 +154,7 @@ const RoomsOverview = () => {
             <div className="location-container"> {/*LOCATIONS*/}
                 {<Grid/>}
             </div>
+        </div>
         </div>
     )
 }

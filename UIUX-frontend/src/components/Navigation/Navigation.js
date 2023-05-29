@@ -31,12 +31,9 @@ const Navigation3 = () => {
         <header>
             <img className="logo" src={logo} alt="logo" />
             <nav ref={navRef}>
-                <a href="/#">Booking</a>
-                <a href="/#">Overview</a>
-                <a href="/#">...</a>
-                <a href="/#">...</a>
+                <a href="/roomsoverview">Overview</a>
                 <button className="avatar-btn" onClick={redirectToProfile}>
-                    {windowWidth > sm ? <FaUser /> : "Profile"}
+                   {windowWidth > sm ? <FaUser /> : "Profile"}
                     {/* <FaUser /> */}
                 </button>
                 <button className="nav-btn nav-close-btn" onClick={showNavBar}>

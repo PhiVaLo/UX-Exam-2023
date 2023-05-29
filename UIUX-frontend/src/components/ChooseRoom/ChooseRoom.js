@@ -4,6 +4,9 @@ import "./ChooseRoom.css";
 import { WindowWidthContext } from "../WindowWidthContext";
 import {Room} from "../RoomsOverview/RoomsOverview";
 import "../config";
+import Navigation from "../Navigation/Navigation";
+
+import {Day} from "../RoomsOverview/RoomsOverview";
 import axios from "axios";
 import {User} from "../Login/Login";
 
@@ -151,6 +154,9 @@ const ChooseRoom = () => {
     };
 
     return (
+        <div>
+            <Navigation/>
+
         <div className="m-4">
             <h2>Room Name</h2>
             <hr />
@@ -269,7 +275,7 @@ const ChooseRoom = () => {
                     <option value="18">18:00</option>
                     <option value="19">19:00</option>
                 </select>
-                <button type="button" onClick={bookTime} className="btn book-time-btn">
+                <button type="button" className="btn book-time-btn">
                     Book Time
                 </button>                
             </div>

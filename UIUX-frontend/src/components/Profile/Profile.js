@@ -54,6 +54,8 @@ const Profile = (props) => {
     }, [oneTime]);
 
     return (
+        <div>
+            <Navigation/>
         <div className="profile m-4">
             <div>
                 <h2>Profile</h2>
@@ -63,8 +65,8 @@ const Profile = (props) => {
                 Logout
             </button>
             <div>
-                <p><b>Name</b>: John Doe</p>
-                <p><b>Role</b>: Student</p>
+                <p><b>Name</b>: {userName}</p>
+                <p><b>Role</b>: {userRole}</p>
             </div>
             <div style={{ margin: "200px 0" }}></div>{" "}
             {/* delete this line later */}
