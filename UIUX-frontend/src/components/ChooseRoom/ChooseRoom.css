@@ -97,7 +97,7 @@
     justify-content: center;
     gap: 5px;
     width: 300px;
-    width: 550px;
+    /* width: 550px; */
     margin: auto;
 }
 
@@ -154,4 +154,25 @@
 .book-time-btn:hover {
     background: var(--color-primary-dark);
     color: #fff;
+}
+
+
+
+.btn-md-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.book-time-btn2 {
+    width: 355px;
+    margin: 0;
+
+}
+
+/* small sm */
+@media only screen and (width > 768px) {
+    .book-time {
+        width: 550px;
+    }
 }

@@ -187,15 +187,18 @@ const ChooseRoom = () => {
                     <option value="option8">16:00</option>
                     <option value="option9">17:00</option>
                 </select>
+                {windowWidth > sm ? 
                 <button type="button" className="btn book-time-btn">
                     Book Time
-                </button>                
+                </button> : ""}
             </div>
 
-            {/* -------------------------------------------------------------- */}
-            {/* <button type="button" className="btn book-time-btn">
-                Book Time
-            </button> */}
+            {windowWidth < sm ? 
+            <div className="btn-md-container">
+                <button type="button" className="btn book-time-btn book-time-btn2">
+                    Book Time
+                </button>
+            </div> : "" }
         </div>
     );
 };
