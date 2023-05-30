@@ -170,10 +170,9 @@ function LoginForm() {
         event.preventDefault();
         axios.get(apiUrl + `/bookings/${guestID}`).then((response) => {
             if (response.data !== "OK") {
-                //TODO redirect to correct url
                 global.config.obj.User = false;
                 global.config.obj.GuestBookingId = response.data;
-                window.location.href = "/hello";
+                window.location.href = "/bookingoverview";
             } else {
                 setErrorMessage("Not a valid guest ID");
             }
