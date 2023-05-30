@@ -6,8 +6,10 @@ import Profile from "./Profile/Profile";
 import BookingOverview from "./BookingOverview/BookingOverview";
 import ChooseRoom from "./ChooseRoom/ChooseRoom";
 
-import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking";
-import ModalAddParticipant from "./ModalAddParticipant/ModalAddParticipant";
+import ModalCancelBooking from "./ModalCancelBooking/ModalCancelBooking"
+import ModalAddParticipant from './ModalAddParticipant/ModalAddParticipant'
+import RoomsOverview from "./RoomsOverview/RoomsOverview";
+
 
 import { WindowWidthProvider } from "./WindowWidthContext";
 
@@ -18,11 +20,8 @@ const App = () => {
 
     const [participantsState, setParticipantsState] = useState([]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setParticipantsState(["phiy", "tily", "kkni", "ptso", "omse"]);
-        }, 2000);
-    }, [participantsState]);
+    // TODO Remove for final build
+
     //? test database-----------------
 
     return (
@@ -46,9 +45,10 @@ const App = () => {
                     />
                 </div>
 
-                <div className="container debug-box">
-                    <LoginForm />
-                </div>
+            <LoginForm/>
+            <div style={{margin: "30px 0"}}></div><hr />
+
+            <RoomsOverview/>
 
                 <div className="container debug-box">
                     <ModalAddParticipant />
@@ -57,9 +57,16 @@ const App = () => {
                 <div className="container debug-box">
                     <ModalCancelBooking />
                 </div>
+
+                <div className="container debug-box">
+                    <RoomsOverview />
+                </div>
             </div>
         </WindowWidthProvider>
-    );
+
+    )
 };
+
+
 
 export default App;
