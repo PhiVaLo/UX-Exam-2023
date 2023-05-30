@@ -1,3 +1,4 @@
+import {useLocation} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
@@ -18,6 +19,11 @@ const Profile = (props) => {
     const deleteBooking = (booking) => {
         axios.delete(apiUrl + `bookings/${booking.id}`).then(res => setOneTime(1));
     }
+
+    const LogOut = (event) => {
+        window.location.href = "/";
+   }
+
 
     const [bookingsInfo, setBookingsInfo] = useState([]);
     const [oneTime, setOneTime] = useState(0);
@@ -58,7 +64,7 @@ const Profile = (props) => {
                 <h2>Profile</h2>
                 <hr />
             </div>
-            <button type="button" className="btn btn-danger logout-btn">
+            <button type="button" className="btn btn-danger logout-btn" onClick={LogOut}>
                 Logout
             </button>
             <div>
