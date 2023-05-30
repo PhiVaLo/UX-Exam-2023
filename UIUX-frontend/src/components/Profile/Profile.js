@@ -8,6 +8,21 @@ import Navigation from "../Navigation/Navigation";
 
 const apiUrl = "http://localhost:3002/";
 
+function ComponentB() {
+
+    const location = useLocation();
+
+    return (
+        <>
+            <div>
+                <p>TEST</p>
+                {location.state.name}
+            </div>
+
+        </>
+    )
+}
+
 const Profile = (props) => {
     const User = global.config.obj.User;
     const getDate = (time) => {
@@ -21,7 +36,8 @@ const Profile = (props) => {
     }
 
     const LogOut = (event) => {
-        window.location.href = "/";
+        //window.location.href = "/";
+        console.log(ComponentB)
    }
 
 
@@ -77,6 +93,7 @@ const Profile = (props) => {
             <div>
                 <p>
                     <b>My Bookings</b>
+                    {/*<ComponentB/>*/}
                 </p>
                 <div className="booking-wrapper">
                     {bookingsInfo.map((booking, index) => (

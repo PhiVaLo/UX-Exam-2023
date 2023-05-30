@@ -1,9 +1,26 @@
+import {Link, useNavigate} from 'react-router-dom';
 import './Login.css'
 import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import "../config";
 const apiUrl = "http://localhost:3002";
 
+
+function ComponentA(props) {
+    const navigate = useNavigate();
+
+    const toComponentB=()=>{
+        navigate('/componentB',{state:{id:1,name:'sabaoon'}});
+    }
+
+    return (
+        <>
+            <div>
+                <a onClick={()=>{toComponentB()}}>Component B</a>
+            </div>
+        </>
+    )
+}
 function LoginForm() {
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
@@ -117,6 +134,7 @@ function LoginForm() {
                 // TODO redirect to correct url
                 axios.get(apiUrl + `/users/email/${userEmail}`).then(response => {
                     global.config.obj.User = response.data;
+
                     window.location.href = "/roomsoverview";
                 });
             }else{
