@@ -33,8 +33,8 @@ const Navigation3 = () => {
             <nav ref={navRef}>
                 <a href="/roomsoverview">Overview</a>
                 <button className="avatar-btn" onClick={redirectToProfile}>
-                   {windowWidth > sm ? <FaUser /> : "Profile"}
-                    {/* <FaUser /> */}
+                   {/*windowWidth > sm ? <FaUser /> : "Profile"*/}
+                    {<FaUser />}
                 </button>
                 <button className="nav-btn nav-close-btn" onClick={showNavBar}>
                     <FaTimes />

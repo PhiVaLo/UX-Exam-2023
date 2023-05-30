@@ -132,7 +132,7 @@ const RoomsOverview = () => {
 
         <div className='rooms-overview'>
 
-            <div className='date-container'>
+            <div className='dates-container'>
                 <form className="my-date">{getDate()}</form>
 
                 <button className='date-backward'>
@@ -145,7 +145,7 @@ const RoomsOverview = () => {
 
             </div>
 
-            <div className="location-container"> {/*LOCATIONS*/}
+            <div className="location-container">
                 {<Grid/>}
             </div>
         </div>

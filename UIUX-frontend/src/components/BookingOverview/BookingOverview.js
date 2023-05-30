@@ -77,7 +77,6 @@ const BookingOverview = (props) => {
         return (
             <div>
                 <p><b>Participants</b>: {list}</p>
-
             </div>
         )
     }
