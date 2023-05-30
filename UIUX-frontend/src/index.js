@@ -6,7 +6,6 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import HelloWorld from "./components/HelloWorld/HelloWorld";
 import BookingOverview from "./components/BookingOverview/BookingOverview";
 import Profile from "./components/Profile/Profile";
 import RoomsOverview from "./components/RoomsOverview/RoomsOverview";

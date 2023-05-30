@@ -90,12 +90,9 @@ const Profile = (props) => {
                         {"Student" /*TODO maybe put logic in here*/}</p>
             </div>
             <div style={{ margin: "200px 0" }}></div>{" "}
-            {/* delete this line later */}
-
             <div>
                 <p>
                     <b>My Bookings</b>
-                    {/*<ComponentB/>*/}
                 </p>
                 <div className="booking-wrapper">
                     {bookingsInfo.map((booking, index) => (
