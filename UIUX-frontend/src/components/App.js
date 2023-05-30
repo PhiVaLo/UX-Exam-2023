@@ -29,11 +29,11 @@ const App = () => {
             <div>
                 <Navigation />
 
-                <div className="container debug-box">
+                <div className="container">
                     <ChooseRoom />
                 </div>
 
-                <div className="container debug-box">
+                {/* <div className="container">
                     <Profile />
                 </div>
 
@@ -60,7 +60,7 @@ const App = () => {
 
                 <div className="container debug-box">
                     <RoomsOverview />
-                </div>
+                </div> */}
             </div>
         </WindowWidthProvider>
 
