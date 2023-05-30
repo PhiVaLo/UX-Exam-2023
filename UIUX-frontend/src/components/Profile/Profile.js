@@ -8,19 +8,21 @@ import Navigation from "../Navigation/Navigation";
 
 const apiUrl = "http://localhost:3002/";
 
+
+
 const Profile = (props) => {
-    const User = global.config.obj.User;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const User = location.state.user;
     const getDate = (time) => {
         const date = new Date();
         date.setTime(time);
         return date.toDateString();
-    };
+    }
 
     const deleteBooking = (booking) => {
-        axios
-            .delete(apiUrl + `bookings/${booking.id}`)
-            .then((res) => setOneTime(1));
-    };
+        axios.delete(apiUrl + `bookings/${booking.id}`).then(res => setOneTime(1));
+    }
 
     const LogOut = (event) => {
         window.location.href = "/";
@@ -40,7 +42,7 @@ const Profile = (props) => {
             const userBookings = response.data;
             const tempBookingsInfo = [];
 
-            if (userBookings === "OK") {
+            if (userBookings === "OK"){
                 return;
             }
 

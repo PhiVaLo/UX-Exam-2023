@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {useLocation, useNavigate} from 'react-router-dom';
 import './RoomsOverview.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +10,8 @@ import Navigation from "../Navigation/Navigation";
 const apiUrl = "http://localhost:3002";
 
 const RoomsOverview = () => {
+    const locationRouter = useLocation();
+    const navigate = useNavigate();
     const currentDate = new Date();
     let o = new Date();
     const [day, setDay] = useState(0);
@@ -45,8 +48,7 @@ const RoomsOverview = () => {
         const [bookingMap, setBookingMap] = useState(new Map());
         const [grids, setGrids] = useState([]);
 
-        //let id = 'ID' //TODO Import id from logged in user
-        let id = 1;
+        const id = locationRouter.state.user.university_id;
 
         useEffect(() => {
             (async function(){
@@ -124,7 +126,9 @@ const RoomsOverview = () => {
         )
     }
 
-
+    function redirect(room) {
+        navigate('/room',{state:{user:locationRouter.state.user,guestUserId:locationRouter.state.user, room:room}});
+    }
 
     return (
         <div>
@@ -159,10 +163,7 @@ const RoomsOverview = () => {
         </div>
     )
 }
-function redirect(room) {
-    global.config.obj.Room = room;
-    window.location.href = "/room"
-}
+
 
 
 

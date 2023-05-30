@@ -1,52 +1,54 @@
-import "./Login.css";
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import {Link, useNavigate} from 'react-router-dom';
+import './Login.css'
+import React, {useEffect, useRef, useState} from 'react';
+import axios from 'axios';
 import "../config";
 const apiUrl = "http://localhost:3002";
 
 function LoginForm() {
+    const navigate = useNavigate();
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
-    const [guestID, setGuestID] = useState("");
-    const [userEmail, setUserEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [guestID, setGuestID] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [university, setUniversity] = useState(1);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
     const regex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+
 
     const handleEmailChange = (event) => {
         setUserEmail(event.target.value);
         if (regex.test(userEmail)) {
-            setErrorMessage("");
+            setErrorMessage('');
         }
-    };
+    }
 
-    const handlePasswordChange = (event) => {
-        //When Password Field changes
+    const handlePasswordChange = (event) => { //When Password Field changes
         setPassword(event.target.value);
         if (event.target.value.length > 7) {
-            setErrorMessage("");
+            setErrorMessage('');
         }
     };
 
     const handleGuestIDChange = (event) => {
         setGuestID(event.target.value);
-    };
+    }
 
     const handleConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
-    };
+    }
 
     const handleUniversityChange = (event) => {
         setUniversity(event.target.value);
 
         if (university !== 0) {
-            setErrorMessage("");
+            setErrorMessage('')
         }
-    };
+    }
 
-    const Universities = (props) => {
+    const Universities = props => {
         const [universitiesList, setUniversitiesList] = useState([]);
         const unmountedRef = useRef(false);
         //useEffect(()=>()=>(unmountedRef.current = true), []);
@@ -65,9 +67,11 @@ function LoginForm() {
 
                     setUniversitiesList(tempUniversities);
                 } else {
-                    console.error("Cannot find universities from api");
+                    console.error("Cannot find universities from api")
                 }
+
             })();
+
         }, [university]);
 
         return (
@@ -91,74 +95,67 @@ function LoginForm() {
     };
 
     const getOption = (value, label) => {
-        return <option value={value}>{label}</option>;
-    };
+        return (<option value={value} >{label}</option>);
+    }
 
-    const handleLogin = (event) => {
-        //Login Button Pressed
+    const handleLogin = (event) => { //Login Button Pressed
         event.preventDefault();
 
         if (!regex.test(userEmail)) {
-            setErrorMessage("Not an Email");
+            setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
-            setErrorMessage("Password must be at least 8 characters in length");
+            setErrorMessage('Password must be at least 8 characters in length');
             return;
         }
 
         const data = {
-            email: userEmail,
-            password: password,
-        };
+            email:userEmail,
+            password:password
+        }
         axios.post(apiUrl + `/login`, data).then(function (response) {
-            if (response.status === 404) {
-                console.error(
-                    "Error connecting to the api, make sur backend is running!"
-                );
-            } else if (response.headers.get("Login-status") == 1) {
+            if (response.status === 404){
+                console.error("Error connecting to the api, make sur backend is running!");
+            }
+            else if (response.headers.get('Login-status') == 1){
                 // TODO redirect to correct url
-                axios
-                    .get(apiUrl + `/users/email/${userEmail}`)
-                    .then((response) => {
-                        global.config.obj.User = response.data;
-                        window.location.href = "/roomsoverview";
-                    });
-            } else {
-                setErrorMessage("Invalid email/password combination");
+                axios.get(apiUrl + `/users/email/${userEmail}`).then(response => {
+                    navigate('/roomsoverview',{state:{user:response.data,guestUserId:false}});
+                });
+            }else{
+                setErrorMessage('Invalid email/password combination');
             }
         });
+
     };
 
-    const handleSignup = (event) => {
-        //Sign Up Button Pressed
+    const handleSignup = (event) => { //Sign Up Button Pressed
         event.preventDefault();
         if (!regex.test(userEmail)) {
-            setErrorMessage("Not an Email");
+            setErrorMessage('Not an Email');
             return;
         }
         if (password.length < 8) {
-            setErrorMessage("Password must be at least 8 characters in length");
+            setErrorMessage('Password must be at least 8 characters in length');
             return;
         }
         if (password !== confirmPassword) {
-            setErrorMessage("Passwords do not match");
+            setErrorMessage('Passwords do not match');
             return;
         }
 
         const data = {
-            name: "Dummy User name",
-            email: userEmail,
-            password: password,
-            university_id: university,
-            role: "Dummy",
-        };
-        axios.post(apiUrl + "/users", data).then((response) => {
-            if (response.status === 404) {
-                console.error(
-                    "Error connecting to the api\tMake sure it is running!"
-                );
-            } else if (response.status === 200) {
+            name:"Dummy User name",
+            email:userEmail,
+            password:password,
+            university_id:university,
+            role:"Dummy"
+        }
+        axios.post(apiUrl + '/users', data).then(response => {
+            if (response.status === 404){
+                console.error("Error connecting to the api\tMake sure it is running!");
+            }else if (response.status === 200){
                 console.log("Successfully created new user!");
             }
         });
@@ -168,16 +165,16 @@ function LoginForm() {
 
     const handleGuestLogin = (event) => {
         event.preventDefault();
-        axios.get(apiUrl + `/bookings/${guestID}`).then((response) => {
-            if (response.data !== "OK") {
-                global.config.obj.User = false;
-                global.config.obj.GuestBookingId = response.data;
-                window.location.href = "/bookingoverview";
-            } else {
-                setErrorMessage("Not a valid guest ID");
+        axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
+            if (response.data !== 'OK'){
+                navigate('/roomsoverview',{state:{user:false,guestUserId:response.data}});
+                //TODO redirect to correct url
+            }else{
+                setErrorMessage('Not a valid guest ID');
             }
         });
-    };
+    }
+
 
     return (
         <div className="container mt-5">

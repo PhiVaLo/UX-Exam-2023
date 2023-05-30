@@ -5,14 +5,16 @@ import { WindowWidthContext } from "../WindowWidthContext";
 import "../config";
 import Navigation from "../Navigation/Navigation";
 
-import { Day } from "../RoomsOverview/RoomsOverview";
+import {Day} from "../RoomsOverview/RoomsOverview";
 import axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const apiUrl = "http://localhost:3002";
 
 const ChooseRoom = () => {
-    const User = global.config.obj.User;
-    const Room = global.config.obj.Room;
+    const locationRouter = useLocation();
+    const User = locationRouter.state.user;
+    const Room = locationRouter.state.room;
 
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
@@ -39,7 +41,7 @@ const ChooseRoom = () => {
             window.removeEventListener("resize", handleWindowResize);
         };
     }, []);
-    
+
 
     // const windowWidth = useContext(WindowWidthContext);
     const sm = global.config.obj.size.sm;
@@ -63,47 +65,46 @@ const ChooseRoom = () => {
         setSelectedOptionTimeEnd(event.target.value);
     };
 
-    const checkOverlap = () => {};
+    const checkOverlap = () => {
+
+    }
 
     const bookTime = (event) => {
-        if (selectedOptionDate === "") {
+        if (selectedOptionDate === ""){
             return;
         }
-        if (selectedOptionTimeStart === "") {
+        if (selectedOptionTimeStart === ""){
             return;
         }
-        if (selectedOptionTimeEnd === "") {
+        if (selectedOptionTimeEnd === ""){
             return;
         }
-        if (
-            parseInt(selectedOptionTimeEnd) -
-                parseInt(selectedOptionTimeStart) <=
-            0
-        ) {
+
+        const duration = parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart);
+
+        if (duration <= 0){
             return;
         }
-        if (checkOverlap()) {
+        if (checkOverlap()){
             // If there is an overlap
         }
 
         const dateStart = new Date();
-        dateStart.setHours(parseInt(selectedOptionTimeStart));
+        dateStart.setHours( parseInt(selectedOptionTimeStart));
         dateStart.setDate(dateStart.getDate() + parseInt(selectedOptionDate));
         dateStart.setHours(dateStart.getHours());
 
         const data = {
-            owner_id: User.user_id,
-            room_id: Room.room_id,
+            owner_id:User.user_id,
+            room_id:Room.room_id,
             university_id: User.university_id,
             date_time: dateStart.getTime(),
-            description: "None",
-            duration:
-                parseInt(selectedOptionTimeEnd) -
-                parseInt(selectedOptionTimeStart),
+            description: 'None',
+            duration: (parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart))
         };
 
-        axios.post(apiUrl + "/bookings", data).then((res) => setOnetime(1));
-    };
+        axios.post(apiUrl + "/bookings", data).then(res => setOnetime(1));
+    }
 
     const BookingsByDate = (props) => {
         const [bookings, setBookings] = useState([]);
@@ -112,16 +113,11 @@ const ChooseRoom = () => {
         dayDate.setTime(date);
 
         useEffect(() => {
-            (async function () {
+            (async function(){
                 const tempBookings = [];
-                let response = await axios.get(
-                    apiUrl +
-                        `/rooms/${Room.room_id}/bookings/${
-                            date + (86400000 * 8) / 24
-                        }&${date + 86400000 * (18 / 24)}`
-                );
+                let response = await axios.get(apiUrl + `/rooms/${Room.room_id}/bookings/${date}&${date + (86400000)}`);
 
-                if (response.data === "OK") {
+                if (response.data === "OK"){
                     // No bookings found
                     return;
                 }
@@ -158,7 +154,7 @@ const ChooseRoom = () => {
         const date = new Date();
         date.setDate(date.getDate() + offset);
         return `${date.getDate()}/${date.getMonth() + 1}`;
-    };
+    }
 
     const booked = (startHour, duration, username, role) => {
         const height = 40;
@@ -185,7 +181,7 @@ const ChooseRoom = () => {
 
     return (
         <div>
-            <Navigation />
+            <Navigation/>
 
             {/* <div className="m-4"> */}
             <div className="container">
@@ -275,9 +271,9 @@ const ChooseRoom = () => {
                     )}
                 </div>
 
-                {/* -------------------------------------------------------------- */}
+            {/* -------------------------------------------------------------- */}
 
-                <hr />
+            <hr />
 
                 <p className="center">
                     <b>Select a date/time to book</b>
