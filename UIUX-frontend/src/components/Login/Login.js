@@ -5,23 +5,8 @@ import axios from 'axios';
 import "../config";
 const apiUrl = "http://localhost:3002";
 
-
-function ComponentA(props) {
-    const navigate = useNavigate();
-
-    const toComponentB=()=>{
-        navigate('/componentB',{state:{id:1,name:'sabaoon'}});
-    }
-
-    return (
-        <>
-            <div>
-                <a onClick={()=>{toComponentB()}}>Component B</a>
-            </div>
-        </>
-    )
-}
 function LoginForm() {
+    const navigate = useNavigate();
     const [isLoginFormActive, setIsLoginFormActive] = useState(true);
     const [isGuestFormActive, setIsGuestFormActive] = useState(false);
     const [guestID, setGuestID] = useState('');
@@ -133,9 +118,7 @@ function LoginForm() {
             else if (response.headers.get('Login-status') == 1){
                 // TODO redirect to correct url
                 axios.get(apiUrl + `/users/email/${userEmail}`).then(response => {
-                    global.config.obj.User = response.data;
-
-                    window.location.href = "/roomsoverview";
+                    navigate('/roomsoverview',{state:{user:response.data,guestUserId:false}});
                 });
             }else{
                 setErrorMessage('Invalid email/password combination');
@@ -181,10 +164,8 @@ function LoginForm() {
         event.preventDefault();
         axios.get(apiUrl + `/bookings/${guestID}`).then(response => {
             if (response.data !== 'OK'){
+                navigate('/roomsoverview',{state:{user:false,guestUserId:response.data}});
                 //TODO redirect to correct url
-                global.config.obj.User = false;
-                global.config.obj.GuestBookingId = response.data;
-                window.location.href = "/hello";
             }else{
                 setErrorMessage('Not a valid guest ID');
             }

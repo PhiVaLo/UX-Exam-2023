@@ -1,4 +1,4 @@
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
@@ -8,23 +8,12 @@ import Navigation from "../Navigation/Navigation";
 
 const apiUrl = "http://localhost:3002/";
 
-function ComponentB() {
 
-    const location = useLocation();
-
-    return (
-        <>
-            <div>
-                <p>TEST</p>
-                {location.state.name}
-            </div>
-
-        </>
-    )
-}
 
 const Profile = (props) => {
-    const User = global.config.obj.User;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const User = location.state.user;
     const getDate = (time) => {
         const date = new Date();
         date.setTime(time);
@@ -36,8 +25,7 @@ const Profile = (props) => {
     }
 
     const LogOut = (event) => {
-        //window.location.href = "/";
-        console.log(ComponentB)
+        window.location.href = "/";
    }
 
 
@@ -84,7 +72,7 @@ const Profile = (props) => {
                 Logout
             </button>
             <div>
-                <p><b>Name</b>: {User.email}</p>
+                <p><b>Name</b>: {location.state.user.email}</p>
                 <p><b>Role</b>: {"Student" /*TODO maybe put logic in here*/}</p>
             </div>
             <div style={{ margin: "200px 0" }}></div>{" "}

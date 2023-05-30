@@ -7,12 +7,14 @@ import Navigation from "../Navigation/Navigation";
 
 import {Day} from "../RoomsOverview/RoomsOverview";
 import axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const apiUrl = "http://localhost:3002";
 
 const ChooseRoom = () => {
-    const User = global.config.obj.User;
-    const Room = global.config.obj.Room;
+    const locationRouter = useLocation();
+    const User = locationRouter.state.user;
+    const Room = locationRouter.state.room;
 
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
@@ -63,7 +65,10 @@ const ChooseRoom = () => {
         if (selectedOptionTimeEnd === ""){
             return;
         }
-        if (parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart) <= 0){
+
+        const duration = parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart);
+
+        if (duration <= 0){
             return;
         }
         if (checkOverlap()){
@@ -81,7 +86,7 @@ const ChooseRoom = () => {
             university_id: User.university_id,
             date_time: dateStart.getTime(),
             description: 'None',
-            duration: (parseInt(selectedOptionTimeEnd) - parseInt(selectedOptionTimeStart))
+            duration: duration
         };
 
         axios.post(apiUrl + "/bookings", data).then(res => setOnetime(1));
@@ -96,7 +101,7 @@ const ChooseRoom = () => {
         useEffect(() => {
             (async function(){
                 const tempBookings = [];
-                let response = await axios.get(apiUrl + `/rooms/${Room.room_id}/bookings/${date + (86400000 * 8/24)}&${date + (86400000 * (18 / 24))}`);
+                let response = await axios.get(apiUrl + `/rooms/${Room.room_id}/bookings/${date}&${date + (86400000)}`);
 
                 if (response.data === "OK"){
                     // No bookings found

@@ -9,8 +9,11 @@ import logo from "../../images/logo2.png";
 
 import { useRef } from "react";
 import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+import {useNavigate, useLocation} from "react-router-dom";
 
 const Navigation3 = () => {
+    const navigate = useNavigate();
+    const locationRouter = useLocation();
     const navRef = useRef();
 
     // toggle dropdown
@@ -19,7 +22,11 @@ const Navigation3 = () => {
     };
 
     const redirectToProfile = (event) => {
-        window.location.href = "/profile";
+        navigate('/profile',{state:{user:locationRouter.state.user,guestUserId:locationRouter.state.user}});
+    }
+
+    const redirectToRoomOverview = (event) => {
+        navigate('/roomsoverview',{state:{user:locationRouter.state.user,guestUserId:locationRouter.state.user}});
     }
 
     const windowWidth = useContext(WindowWidthContext);
@@ -31,7 +38,7 @@ const Navigation3 = () => {
         <header>
             <img className="logo" src={logo} alt="logo" />
             <nav ref={navRef}>
-                <a href="/roomsoverview">Overview</a>
+                <button className="avatar-btn" onClick={redirectToRoomOverview}>Overview</button> 
                 <button className="avatar-btn" onClick={redirectToProfile}>
                    {/*windowWidth > sm ? <FaUser /> : "Profile"*/}
                     {<FaUser />}
