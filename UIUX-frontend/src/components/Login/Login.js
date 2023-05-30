@@ -117,7 +117,6 @@ function LoginForm() {
                     "Error connecting to the api, make sur backend is running!"
                 );
             } else if (response.headers.get("Login-status") == 1) {
-                // TODO redirect to correct url
                 axios
                     .get(apiUrl + `/users/email/${userEmail}`)
                     .then((response) => {

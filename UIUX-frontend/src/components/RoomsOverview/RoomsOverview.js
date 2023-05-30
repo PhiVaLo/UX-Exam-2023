@@ -14,8 +14,6 @@ const RoomsOverview = () => {
     const [day, setDay] = useState(0);
     const [onetime, setOnetime] = useState(0);
     currentDate.setMonth(currentDate.getMonth() + 1);
-    const rooms = [];
-    rooms.push(); //TODO Push all relevant values from sqlite database
 
     const rightArrow = (event) => {
         event.preventDefault();
@@ -123,8 +121,6 @@ const RoomsOverview = () => {
             </Container>
         )
     }
-
-
 
     return (
         <div>
