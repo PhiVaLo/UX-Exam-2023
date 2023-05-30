@@ -21,8 +21,6 @@ const ChooseRoom = () => {
         setDay(increaseDay => increaseDay + 1);
     }
 
-    console.log(Room);
-
     const leftArrow = (event) => {
         event.preventDefault();
         setDay(decreaseDay => decreaseDay - 1);
@@ -98,7 +96,7 @@ const ChooseRoom = () => {
         useEffect(() => {
             (async function(){
                 const tempBookings = [];
-                let response = await axios.get(apiUrl + `/rooms/${1}/bookings/${date + (86400000 * 8/24)}&${date + (86400000 * (18 / 24))}`);
+                let response = await axios.get(apiUrl + `/rooms/${Room.room_id}/bookings/${date + (86400000 * 8/24)}&${date + (86400000 * (18 / 24))}`);
 
                 if (response.data === "OK"){
                     // No bookings found
@@ -278,7 +276,7 @@ const ChooseRoom = () => {
                     <option value="18">18:00</option>
                     <option value="19">19:00</option>
                 </select>
-                <button type="button" className="btn book-time-btn">
+                <button type="button" onClick={bookTime} className="btn book-time-btn">
                     Book Time
                 </button>                
             </div>
