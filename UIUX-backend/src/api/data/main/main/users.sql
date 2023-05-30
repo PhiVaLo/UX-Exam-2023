@@ -1,4 +1,4 @@
-create table users
+create table main.users
 (
     user_id       INTEGER
         primary key,
@@ -7,6 +7,6 @@ create table users
     password      TEXT    not null,
     role          INTEGER not null,
     university_id INTEGER not null
-        references universities
+        references main.universities
 );
 

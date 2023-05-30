@@ -1,4 +1,4 @@
-create table universities
+create table main.universities
 (
     university_id   INTEGER
         primary key,
