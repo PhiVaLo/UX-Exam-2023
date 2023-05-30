@@ -130,6 +130,8 @@ const RoomsOverview = () => {
         <div>
             <Navigation/>
 
+        <div className='container2'>
+
         <div className='rooms-overview'>
 
             <div className='dates-container'>
@@ -148,6 +150,7 @@ const RoomsOverview = () => {
             <div className="location-container">
                 {<Grid/>}
             </div>
+        </div>
         </div>
         </div>
     )

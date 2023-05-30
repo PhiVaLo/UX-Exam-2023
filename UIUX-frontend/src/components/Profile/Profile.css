@@ -1,5 +1,7 @@
 .profile {
     position: relative;
+    /* border: 1px solid red; */
+    padding: 25px 50px;
 }
 
 
@@ -18,7 +20,7 @@
     padding: 0px !important;
 
     position: absolute;
-    right: 0;
+    right: 50px;
 }
 
 .booking-btn {

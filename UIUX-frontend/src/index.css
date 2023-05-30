@@ -29,7 +29,7 @@ body {
 }
 
 
-body::before {
+/* body::before {
     content: "XS";
     color: red;
     font-size: 2rem;
@@ -40,7 +40,6 @@ body::before {
     z-index: 99999;
 }
 
-/* This box class is purely used for explaining how the bootstrap grid system works. */
 .box {
     background-color: lightblue;
     border: 1px solid blue;
@@ -76,4 +75,4 @@ body::before {
     body::before {
         content: "XXL";
     }
-}
+} */
