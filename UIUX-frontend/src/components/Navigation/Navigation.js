@@ -44,7 +44,10 @@ const Navigation3 = () => {
 
     return (
         <header>
-            <img className="logo" src={logo} alt="logo" />
+            <div>
+                <img className="logo" src={logo} alt="logo" />
+                <span className="logo-title">UniBook</span>
+            </div>
             <nav ref={navRef}>
                 <a href="/roomsoverview">Overview</a>
                 <button className="avatar-btn" onClick={redirectToProfile}>

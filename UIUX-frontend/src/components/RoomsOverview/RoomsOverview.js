@@ -134,6 +134,10 @@ const RoomsOverview = () => {
 
         <div className='rooms-overview'>
 
+            <div className="rooms-title">
+                <p>Select a room to book</p>
+            </div>
+
             <div className='dates-container'>
                 <form className="my-date">{getDate()}</form>
 

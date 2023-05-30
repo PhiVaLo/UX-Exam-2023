@@ -21,6 +21,10 @@ header {
     background-color: var(--main-color);
     color: var(--text-color);
 }
+.logo-title {
+    margin: 0 1rem;
+    font-size: 20px;
+}
 
 nav a {
     margin: 0 2rem;
@@ -39,6 +43,7 @@ nav a:hover {
     color: var(--text-color);
     
 }
+
 
 .avatar-img {
     height: 40px;

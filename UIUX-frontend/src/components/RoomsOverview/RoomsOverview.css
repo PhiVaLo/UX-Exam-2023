@@ -14,7 +14,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
     text-align: center;
@@ -108,6 +108,12 @@
     user-select: none;
     margin-top: 4%;
     margin-bottom: 2%;
+}
+.rooms-title {
+    margin-top: 2%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 45px;
 }
 
 .status-red {

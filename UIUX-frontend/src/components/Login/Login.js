@@ -181,182 +181,186 @@ function LoginForm() {
     };
 
     return (
-        <div className="login-wrapper">
-            <div className="login-container">
-                {isLoginFormActive ? (
-                    <form className="form" id="login" onSubmit={handleLogin}>
-                        <h1 className="form-title">Login</h1>
-                        <div className="form-message form-message-error">
-                            {errorMessage}
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${
-                                    errorMessage.includes("Email")
+        <div className="container mt-5">
+            <h1 className="login-title">Welcome to UniBook</h1>
+            <h2 className="login-title">Log in to continue</h2>
+            <div className="login-wrapper">
+                <div className="login-container">
+                    {isLoginFormActive ? (
+                        <form className="form" id="login" onSubmit={handleLogin}>
+                            <h1 className="form-title">Login</h1>
+                            <div className="form-message form-message-error">
+                                {errorMessage}
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="text"
+                                    className={`form-input ${
+                                        errorMessage.includes("Email")
+                                            ? "form-input-error"
+                                            : ""
+                                        }`}
+                                        autoFocus
+                                        placeholder="Email"
+                                        value={userEmail}
+                                        onChange={handleEmailChange}
+                                        />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="password"
+                                    className={`form-input ${
+                                        errorMessage.includes("Password")
                                         ? "form-input-error"
                                         : ""
-                                }`}
-                                autoFocus
-                                placeholder="Email"
-                                value={userEmail}
-                                onChange={handleEmailChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${
-                                    errorMessage.includes("Password")
-                                        ? "form-input-error"
-                                        : ""
-                                }`}
-                                placeholder="Password"
-                                value={password}
-                                onChange={handlePasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">
-                            Log in
-                        </button>
-                        {/*<p className="form-text">
-                        <a href="#" className="form-link">Forgot your password?</a>
-                    </p>*/}
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => setIsLoginFormActive(false)}
-                            >
-                                Don't have an account? Create account
-                            </a>
-                        </p>
-                        <p className="form-text">
-                            <a
-                                href="#"
-                                className="form-link"
-                                onClick={() => {
-                                    setIsLoginFormActive(false);
-                                    setIsGuestFormActive(true);
-                                    setErrorMessage("");
-                                }}
-                            >
-                                Continue as guest
-                            </a>
-                        </p>
-                    </form>
-                ) : isGuestFormActive ? (
-                    <form
+                                    }`}
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <button className="form-button" type="submit">
+                                Log in
+                            </button>
+                            {/*<p className="form-text">
+                            <a href="#" className="form-link">Forgot your password?</a>
+                        </p>*/}
+                            <p className="form-text">
+                                <a
+                                    className="form-link"
+                                    onClick={() => setIsLoginFormActive(false)}
+                                    >
+                                    Don't have an account? Create account
+                                </a>
+                            </p>
+                            <p className="form-text">
+                                <a
+                                    href="#"
+                                    className="form-link"
+                                    onClick={() => {
+                                        setIsLoginFormActive(false);
+                                        setIsGuestFormActive(true);
+                                        setErrorMessage("");
+                                    }}
+                                    >
+                                    Continue as guest
+                                </a>
+                            </p>
+                        </form>
+                    ) : isGuestFormActive ? (
+                        <form
                         className="form"
-                        id="Guest"
-                        onSubmit={handleGuestLogin}
-                    >
-                        <h1 className="form-title">Guest Login</h1>
-                        <div className="form-message form-message-error">
-                            {errorMessage}
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${
-                                    errorMessage.includes("GuestID")
-                                        ? "form-input-error"
-                                        : ""
-                                }`}
-                                autoFocus
-                                placeholder="ID"
-                                value={guestID}
-                                onChange={handleGuestIDChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">
-                            Log in
-                        </button>
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => {
-                                    setIsLoginFormActive(true);
-                                    setIsGuestFormActive(false);
-                                }}
+                            id="Guest"
+                            onSubmit={handleGuestLogin}
                             >
-                                Already have an account? Sign in
-                            </a>
-                        </p>
-                    </form>
-                ) : (
-                    <form className="form" id="SignUp" onSubmit={handleSignup}>
-                        <h1 className="form-title">Create Account</h1>
-                        <div className="form-message form-message-error">
-                            {errorMessage}
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="text"
-                                className={`form-input ${
-                                    errorMessage.includes("Email")
+                            <h1 className="form-title">Guest Login</h1>
+                            <div className="form-message form-message-error">
+                                {errorMessage}
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="text"
+                                    className={`form-input ${
+                                        errorMessage.includes("GuestID")
                                         ? "form-input-error"
                                         : ""
-                                }`}
-                                autoFocus
-                                placeholder="Email"
-                                value={userEmail}
-                                onChange={handleEmailChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${
-                                    errorMessage.includes("Password")
+                                    }`}
+                                    autoFocus
+                                    placeholder="ID"
+                                    value={guestID}
+                                    onChange={handleGuestIDChange}
+                                    />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <button className="form-button" type="submit">
+                                Log in
+                            </button>
+                            <p className="form-text">
+                                <a
+                                    className="form-link"
+                                    onClick={() => {
+                                        setIsLoginFormActive(true);
+                                        setIsGuestFormActive(false);
+                                    }}
+                                    >
+                                    Already have an account? Sign in
+                                </a>
+                            </p>
+                        </form>
+                    ) : (
+                        <form className="form" id="SignUp" onSubmit={handleSignup}>
+                            <h1 className="form-title">Create Account</h1>
+                            <div className="form-message form-message-error">
+                                {errorMessage}
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="text"
+                                    className={`form-input ${
+                                        errorMessage.includes("Email")
                                         ? "form-input-error"
                                         : ""
-                                }`}
-                                placeholder="Password"
-                                value={password}
-                                onChange={handlePasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            <input
-                                type="password"
-                                className={`form-input ${
-                                    password !== confirmPassword
+                                    }`}
+                                    autoFocus
+                                    placeholder="Email"
+                                    value={userEmail}
+                                    onChange={handleEmailChange}
+                                    />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="password"
+                                    className={`form-input ${
+                                        errorMessage.includes("Password")
                                         ? "form-input-error"
                                         : ""
-                                }`}
-                                placeholder="Confirm Password"
-                                value={confirmPassword}
-                                onChange={handleConfirmPasswordChange}
-                            />
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <div className="form-input-group">
-                            {<Universities />}
-                            <div className="form-input-error-message"></div>
-                        </div>
-                        <button className="form-button" type="submit">
-                            Sign up
-                        </button>
-                        <p className="form-text">
-                            <a href="#" className="form-link">
-                                Forgot your password?
-                            </a>
-                        </p>
-                        <p className="form-text">
-                            <a
-                                className="form-link"
-                                onClick={() => setIsLoginFormActive(true)}
-                            >
-                                Already have an account? Sign in
-                            </a>
-                        </p>
-                    </form>
-                )}
+                                    }`}
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <div className="form-input-group">
+                                <input
+                                    type="password"
+                                    className={`form-input ${
+                                        password !== confirmPassword
+                                        ? "form-input-error"
+                                        : ""
+                                    }`}
+                                    placeholder="Confirm Password"
+                                    value={confirmPassword}
+                                    onChange={handleConfirmPasswordChange}
+                                    />
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <div className="form-input-group">
+                                {<Universities />}
+                                <div className="form-input-error-message"></div>
+                            </div>
+                            <button className="form-button" type="submit">
+                                Sign up
+                            </button>
+                            <p className="form-text">
+                                <a href="#" className="form-link">
+                                    Forgot your password?
+                                </a>
+                            </p>
+                            <p className="form-text">
+                                <a
+                                    className="form-link"
+                                    onClick={() => setIsLoginFormActive(true)}
+                                    >
+                                    Already have an account? Sign in
+                                </a>
+                            </p>
+                        </form>
+                    )}
+                </div>
             </div>
         </div>
     );
