@@ -90,11 +90,11 @@ const ChooseRoom = () => {
                     <div className="date">
                         {/* update date to currentDate */}
                         <div>27/05</div>
-                        {booked(10, 2, "Phi Va Lo", "student")}
+                        {booked(10, 2, "user1", "student")}
                         {booked(
                             13,
                             1,
-                            "phi-1234567899999999999999999999999999"
+                            "user2"
                         )}
                     </div>
                 </div>
@@ -103,8 +103,8 @@ const ChooseRoom = () => {
                     <div className="date">
                         {/* update date to currentDate+1 */}
                         <div>28/05</div>
-                        {booked(8, 2, "phiy")}
-                        {booked(15, 2, "phiy", "student")}
+                        {booked(8, 2, "user2")}
+                        {booked(15, 2, "user1", "student")}
                     </div>
                 </div>
 
@@ -113,7 +113,7 @@ const ChooseRoom = () => {
                         <div className="date">
                             {/* update date to currentDate+2 */}
                             <div>29/05</div>
-                            {booked(9, 5, "abc")}
+                            {booked(9, 5, "user3")}
                         </div>
                     </div>
                 ) : (
@@ -125,7 +125,7 @@ const ChooseRoom = () => {
                         <div className="date">
                         {/* update date to currentDate+3 */}
                             <div>30/05</div>
-                            {booked(10, 1, "abc")}
+                            {booked(10, 1, "user3")}
                         </div>
                     </div>
                 ) : (
@@ -137,7 +137,7 @@ const ChooseRoom = () => {
                         <div className="date">
                         {/* update date to currentDate+4 */}
                             <div>31/05</div>
-                            {booked(11, 1, "abc")}
+                            {booked(11, 1, "user3")}
                         </div>
                     </div>
                 ) : (
@@ -173,6 +173,7 @@ const ChooseRoom = () => {
                     <option value="option7">14:00</option>
                     <option value="option8">15:00</option>
                     <option value="option9">16:00</option>
+                    <option value="option9">17:00</option>
                 </select>
                 <select value={selectedOptionTimeEnd} onChange={handleOptionTimeEndChange} className="select-menu box2">
                     <option value="">End-Time</option>
@@ -186,6 +187,7 @@ const ChooseRoom = () => {
                     <option value="option7">15:00</option>
                     <option value="option8">16:00</option>
                     <option value="option9">17:00</option>
+                    <option value="option9">18:00</option>
                 </select>
                 {windowWidth > sm ? 
                 <button type="button" className="btn book-time-btn">

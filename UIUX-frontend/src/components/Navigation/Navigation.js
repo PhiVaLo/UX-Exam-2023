@@ -29,12 +29,14 @@ const Navigation3 = () => {
 
     return (
         <header>
-            <img className="logo" src={logo} alt="logo" />
+            <div>
+                <img className="logo" src={logo} alt="logo" />
+            </div>
             <nav ref={navRef}>
-                <a href="/#">Booking</a>
+                {/* <a href="/#">Booking</a> */}
                 <a href="/#">Overview</a>
-                <a href="/#">...</a>
-                <a href="/#">...</a>
+                {/* <a href="/#">...</a> */}
+                {/* <a href="/#">...</a> */}
                 <button className="avatar-btn" onClick={redirectToProfile}>
                     {windowWidth > sm ? <FaUser /> : "Profile"}
                     {/* <FaUser /> */}
