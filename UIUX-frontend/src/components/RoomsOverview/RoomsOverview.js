@@ -130,7 +130,13 @@ const RoomsOverview = () => {
         <div>
             <Navigation/>
 
+        <div className='container2'>
+
         <div className='rooms-overview'>
+
+            <div className="rooms-title">
+                <p>Select a room to book</p>
+            </div>
 
             <div className='dates-container'>
                 <form className="my-date">{getDate()}</form>
@@ -148,6 +154,7 @@ const RoomsOverview = () => {
             <div className="location-container">
                 {<Grid/>}
             </div>
+        </div>
         </div>
         </div>
     )

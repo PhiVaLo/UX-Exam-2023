@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Navigation.css";
 
 import { WindowWidthContext } from '../WindowWidthContext';
@@ -22,19 +22,37 @@ const Navigation3 = () => {
         window.location.href = "/profile";
     }
 
-    const windowWidth = useContext(WindowWidthContext);
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener("resize", handleWindowResize);
+
+        return () => {
+            window.removeEventListener("resize", handleWindowResize);
+        };
+    }, []);
+
+    
+    // const windowWidth = useContext(WindowWidthContext);
     const sm = global.config.obj.size.sm;
     
 
 
     return (
         <header>
-            <img className="logo" src={logo} alt="logo" />
+            <div>
+                <img className="logo" src={logo} alt="logo" />
+                <span className="logo-title">UniBook</span>
+            </div>
             <nav ref={navRef}>
                 <a href="/roomsoverview">Overview</a>
                 <button className="avatar-btn" onClick={redirectToProfile}>
-                   {/*windowWidth > sm ? <FaUser /> : "Profile"*/}
-                    {<FaUser />}
+                   {windowWidth > sm ? <FaUser /> : "Profile"}
+                    {/* {<FaUser />} */}
                 </button>
                 <button className="nav-btn nav-close-btn" onClick={showNavBar}>
                     <FaTimes />
