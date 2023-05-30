@@ -26,6 +26,14 @@ header {
     font-size: 20px;
 }
 
+.overview-button {
+    margin: 0 1rem;
+    font-size: 20px;
+    color: white;
+    background: transparent;
+    border: none;
+}
+
 nav a {
     margin: 0 2rem;
     color: var(--text-color);
@@ -41,7 +49,8 @@ nav a:hover {
     border: none;
     font-size: 1.5rem;
     color: var(--text-color);
-    
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 
@@ -79,6 +88,10 @@ header .nav-btn {
         font-size: 1.25rem;
     }
 
+    .overview-button{
+        font-size: 1.25rem !important;
+    }
+
     header nav {
         position: absolute;
         top: 0;
@@ -90,7 +103,7 @@ header .nav-btn {
         right: 0.75rem;
         height: 30%;
         height: 250px;
-        width: 180px;
+        width: 160px;
         /* border: 1px solid white; */
         /* opacity: 0.9; */
 
@@ -127,12 +140,14 @@ header .nav-btn {
     nav a, nav .avatar-btn {
         font-size: 1.0rem;
     }
-
-     
 }
 
 /* small sm */
 @media only screen and (width < 576px) {
+
+    .overview-button{
+        font-size: 1.25rem !important;
+    }
 
     header nav {
         top: 0;

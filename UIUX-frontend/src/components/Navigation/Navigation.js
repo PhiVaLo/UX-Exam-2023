@@ -56,7 +56,7 @@ const Navigation3 = () => {
                 <span className="logo-title">UniBook</span>
             </div>
             <nav ref={navRef}>
-                <button className="avatar-btn" onClick={redirectToRoomOverview}>Overview</button> 
+                <button className="avatar-btn" onClick={redirectToRoomOverview}>Overview</button>
                 <button className="avatar-btn" onClick={redirectToProfile}>
                    {windowWidth > sm ? <FaUser /> : "Profile"}
                     {/* {<FaUser />} */}
