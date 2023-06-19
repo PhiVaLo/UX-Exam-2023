@@ -36,7 +36,7 @@ const Profile = (props) => {
             let response = await axios.get(
                 apiUrl +
                     `users/${User.user_id}/bookings/${new Date().getTime()}&${
-                        new Date().getTime() + 86400000 * 2
+                        new Date().getTime() + 86400000 * 5
                     }`
             );
             const userBookings = response.data;
