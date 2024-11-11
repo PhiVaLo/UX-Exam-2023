@@ -1,3 +1,45 @@
+# UX Exam Group Project  
+This is a project made in our 2. semester at IT-University of Copenhagen
+as part of the course: *"User experience og webprogrammering (Spring 2023)."*
+
+A web application of a booking system for rooms, which was designed for university students and guests.
+
+## Authors
+- Kasper Kirkegaard Nielsen - kkni@itu.dk
+- Patrick Tristan Søborg - ptso@itu.dk
+- Omar Lukman Semou - omse@itu.dk
+- Tien Cam Ly - tily@itu.dk
+- Phi Va Lo - phiy@itu.d
+
+
+# How to run
+To run the project, you will have to run the following in two different terminals. 
+``` 
+cd .\UIUX-backend\
+npm start
+```
+``` 
+cd .\UIUX-frontend\
+npm start
+```
+This should open [http://localhost:3000](http://localhost:3000).
+
+To close the connect correctly, use **Ctrl+C**. Otherwise, you can use the following command in Windows:
+``` 
+taskkill /F /IM node.exe
+```
+
+## Extra commands
+In case of node_modules and/or package.json are throwing exceptions, try run the following:
+``` 
+npm cache clean --force
+```
+After that, delete the folder *node_modules* and *package-lock.json* in one or both of the folders. 
+Now run the following:
+``` 
+npm install
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
