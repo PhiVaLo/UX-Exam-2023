@@ -1,0 +1,65 @@
+Create user table
+CREATE TABLE users(
+    user_id INTEGER PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    passcode TEXT NOT NULL,
+    role INTEGER NOT NULL
+);
+
+Create room table
+CREATE TABLE rooms(
+    room_id INTEGER PRIMARY KEY,
+    room_name TEXT NOT NULL,
+    room_type TEXT NOT NULL
+);
+
+Create bookings table
+CREATE TABLE rooms(
+                      room_id INTEGER PRIMARY KEY,
+                      name TEXT NOT NULL,
+                      location_id INTEGER NOT NULL,
+                      university_id INTEGER NOT NULL,
+                      restriction TEXT,
+                      FOREIGN KEY (location_id)
+                          REFERENCES locations (location_id),
+                      FOREIGN KEY (university_id)
+                          REFERENCES universities (university_id)
+);
+
+Create booking details table
+CREATE TABLE booking_details(
+    user_id INTEGER NOT NULL,
+    booking_id INTEGER NOT NULL
+);
+
+CREATE TABLE universities(
+    university_id INTEGER PRIMARY KEY,
+    university_name Text
+)
+
+
+CREATE TABLE bookings(
+                      booking_id INTEGER PRIMARY KEY,
+                      owner_id INTEGER NOT NULL,
+                      room_id INTEGER NOT NULL,
+                      university_id INTEGER NOT NULL,
+                      description TEXT,
+                      date_time TEXT,
+                      FOREIGN KEY (owner_id)
+                          REFERENCES users (user_id),
+                      FOREIGN KEY (university_id)
+                          REFERENCES universities (university_id),
+                      FOREIGN KEY (room_id)
+                                                REFERENCES rooms (room_id)
+);
+
+CREATE TABLE locations(
+                         location_id INTEGER PRIMARY KEY,
+                         name TEXT NOT NULL,
+                         university_id INTEGER NOT NULL,
+                         description TEXT,
+
+                         FOREIGN KEY (university_id)
+                             REFERENCES universities (university_id)
+);

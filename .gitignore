@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+UIUX-backend/node_modules
+UIUX-frontend/node_modules
 /node_modules
 /.pnp
 .pnp.js
@@ -25,3 +27,13 @@ yarn-error.log*
 /.idea/modules.xml
 /.idea/UX-Exam-2023.iml
 /.idea/vcs.xml
+
+# webstorm
+.idea
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Editor-based HTTP Client requests
+/httpRequests/
+

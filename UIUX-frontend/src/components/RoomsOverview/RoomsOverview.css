@@ -1,0 +1,128 @@
+.container2 {
+    /* border: 1px solid red; */
+    height: 135vh;
+}
+
+.rooms-overview {
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.dates-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+}
+
+.dates-container button {
+    margin: 10px;
+    padding: 5px 10px;
+    position: absolute;
+    justify-content: center;
+    margin-top: 0.5px;
+    border-radius: var(--border-radius);
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+}
+.dates-container button:hover{
+
+}
+
+.date-backward {
+    left: 0;
+    margin-left: 2%;
+
+}
+.date-forward {
+    right: 0;
+    margin-right: 2%;
+}
+
+.my-date {
+    height: 50px;
+    font-size: 18px;
+    font-family: "Quicksand", sans-serif;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    align-content: center;
+    align-items: center;
+}
+
+.location-container {
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.locations {
+    margin-top: 5%;
+    font-size: 25px;
+
+}
+
+.containerGrid {
+
+}
+
+.rowGrid {
+    gap: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.colBox {
+    border: 1px solid;
+    border-radius: 10px;
+    background: #f5f5f5;
+    height: 75px;
+    user-select: none;
+}
+
+.colBox-info {
+    text-align: left;
+}
+
+.colBox:hover {
+    filter:brightness(75%);
+}
+
+.rowHeader {
+    user-select: none;
+    margin-top: 4%;
+    margin-bottom: 2%;
+}
+.rooms-title {
+    margin-top: 2%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 45px;
+}
+
+.status-red {
+    background: #FF496D;
+}
+
+.status-yellow {
+    background: #FFF366;
+}
+.status-green {
+    background: #90EE91;
+}
